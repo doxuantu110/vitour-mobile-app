@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608025798405",
+    "project_id": "vitour-ai-blog",
+    "storage_bucket": "vitour-ai-blog.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608025798405:android:8fac60c775546ac901796c",
+        "android_client_info": {
+          "package_name": "com.uit.vitour"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpe3r6-pjdRvIfxGL4IrknwjHRhoLHeFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
