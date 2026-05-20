@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    nav_graph.xml — Navigation Graph
+    ─────────────────────────────────────────────────────────────────
+    Defines ALL screen destinations reachable after login.
+
+    startDestination: homeFragment (shown when MainActivity launches)
+
+    TAB DESTINATIONS (4 bottom nav tabs):
+      homeFragment    → ui/home/HomeFragment
+      searchFragment  → ui/search/SearchFragment
+      bookingFragment → ui/booking/BookingFragment
+      profileFragment → ui/profile/ProfileFragment
+
+    TO ADD A NEW SCREEN (e.g. TourDetailFragment):
+      1. Add a <fragment> entry here with a unique android:id
+      2. Add an <action> inside the source fragment pointing to it
+      3. Navigate with: NavController.navigate(R.id.action_home_to_detail)
+
+    NOTE: Tab fragment IDs MUST match item IDs in bottom_nav_menu.xml.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 1 — HOME
+         Shows featured destinations + popular tours list.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.uit.vitour.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home">
+
+        <!--
+            Example action to navigate to a detail screen.
+            Uncomment and add TourDetailFragment when ready:
+
+            <action
+                android:id="@+id/action_home_to_tour_detail"
+                app:destination="@id/tourDetailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left" />
+        -->
+    </fragment>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 2 — SEARCH
+         Full-text search for destinations and tours.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.uit.vitour.ui.search.SearchFragment"
+        android:label="@string/nav_search"
+        tools:layout="@layout/fragment_search" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 3 — BOOKING
+         User's active, upcoming, and past bookings.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.uit.vitour.ui.booking.BookingFragment"
+        android:label="@string/nav_booking"
+        tools:layout="@layout/fragment_booking" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 4 — PROFILE
+         User info, settings, and logout.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.uit.vitour.ui.profile.ProfileFragment"
+        android:label="@string/nav_profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

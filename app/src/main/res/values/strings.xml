@@ -1,3 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ViTour</string>
+
+    <!-- ── Bottom Navigation Labels ──────────────────────────────── -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_booking">Booking</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- ── Auth ──────────────────────────────────────────────────── -->
+    <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="logout">Log Out</string>
+    <string name="email_hint">Email address</string>
+    <string name="password_hint">Password</string>
+    <string name="full_name_hint">Full name</string>
+    <string name="dont_have_account">Don\'t have an account? Register</string>
+    <string name="already_have_account">Already have an account? Log in</string>
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Sign in to continue your journey</string>
+    <string name="register_title">Join ViTour</string>
+    <string name="register_subtitle">Create an account to start exploring</string>
+
+    <!-- ── Home ──────────────────────────────────────────────────── -->
+    <string name="home_greeting">Hello, Explorer! 👋</string>
+    <string name="home_subtitle">Where to next?</string>
+    <string name="section_featured">Featured Destinations</string>
+    <string name="section_popular">Popular Tours</string>
+
+    <!-- ── Search ─────────────────────────────────────────────────── -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Destinations, cities, tours…</string>
+    <string name="search_empty">Start typing to discover tours</string>
+    <string name="search_no_results">No results found. Try a different keyword.</string>
+
+    <!-- ── Booking ───────────────────────────────────────────────── -->
+    <string name="booking_title">My Bookings</string>
+    <string name="booking_empty">No bookings yet.\nFind your next adventure!</string>
+    <string name="booking_status_confirmed">Confirmed</string>
+    <string name="booking_status_pending">Pending</string>
+    <string name="booking_status_cancelled">Cancelled</string>
+
+    <!-- ── Profile ────────────────────────────────────────────────── -->
+    <string name="profile_title">Profile</string>
+    <string name="bookmarks_empty">No bookmarks yet. Save your favorite tours here!</string>
+
+    <!-- ── Common ─────────────────────────────────────────────────── -->
+    <string name="loading">Loading…</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="retry">Retry</string>
+    <string name="see_all">See all</string>
 </resources>

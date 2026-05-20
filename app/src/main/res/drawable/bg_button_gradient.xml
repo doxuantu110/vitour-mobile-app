@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_button_gradient.xml
+    ─────────────────────────────────────────────────────────────────
+    Gradient fill for primary action buttons (e.g. "Book Now", "Login").
+    Applies the Travenor brand gradient on a pill-shaped button.
+
+    Usage:
+      <com.google.android.material.button.MaterialButton
+          android:background="@drawable/bg_button_gradient"
+          app:backgroundTint="@null" />     ← IMPORTANT: clear tint first
+
+    NOTE: Set app:backgroundTint="@null" to allow custom background
+    drawables to show on MaterialButton.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="@color/vitour_primary"
+        android:endColor="@color/vitour_primary_dark"
+        android:angle="135"
+        android:type="linear" />
+    <corners android:radius="@dimen/radius_button" />
+</shape>

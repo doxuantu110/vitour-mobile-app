@@ -1,5 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+╔══════════════════════════════════════════════════════════════════════╗
+║            ViTour Design System — App Theme (Light Mode)            ║
+║            Inspired by Travenor Travel UI Kit                       ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  Parent: Theme.MaterialComponents.DayNight.NoActionBar              ║
+║  • NoActionBar: we manage toolbars in each layout independently.   ║
+║  • All color/shape/typography tokens wired from design system files.║
+╚══════════════════════════════════════════════════════════════════════╝
+-->
 <resources>
 
-    <style name="Theme.ViTour" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.ViTour" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- ── Primary Brand Color ─────────────────────────────────────── -->
+        <item name="colorPrimary">@color/vitour_primary</item>
+        <item name="colorOnPrimary">@color/vitour_on_primary</item>
+
+        <!-- ── Secondary — Coral / Sunset Orange ──────────────────────── -->
+        <item name="colorSecondary">@color/vitour_secondary</item>
+        <item name="colorOnSecondary">@color/vitour_on_secondary</item>
+
+        <!-- ── Error ───────────────────────────────────────────────────── -->
+        <item name="colorError">@color/vitour_error</item>
+        <item name="colorOnError">@color/vitour_on_error</item>
+
+        <!-- ── Background & Surface ───────────────────────────────────── -->
+        <item name="android:colorBackground">@color/vitour_background</item>
+        <item name="colorOnBackground">@color/vitour_on_background</item>
+        <item name="colorSurface">@color/vitour_surface</item>
+        <item name="colorOnSurface">@color/vitour_on_surface</item>
+
+        <!-- ── System Bars ─────────────────────────────────────────────── -->
+        <item name="android:statusBarColor">@color/vitour_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/vitour_surface</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- ── Window & Motion ─────────────────────────────────────────── -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimation.ViTour</item>
+
+        <!-- ── Global Shape Overrides ─────────────────────────────────── -->
+        <item name="shapeAppearanceSmallComponent">@style/Shape.ViTour.Chip</item>
+        <item name="shapeAppearanceMediumComponent">@style/Shape.ViTour.Button</item>
+        <item name="shapeAppearanceLargeComponent">@style/Shape.ViTour.Card</item>
+
+        <!-- ── Default Widget Overrides ──────────────────────────────── -->
+        <item name="materialCardViewStyle">@style/Widget.ViTour.Card</item>
+        <item name="materialButtonStyle">@style/Widget.ViTour.Button.Primary</item>
+        <item name="textInputStyle">@style/Widget.ViTour.TextInput</item>
+        <item name="chipStyle">@style/Widget.ViTour.Chip.Filter</item>
+
+    </style>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SPLASH SCREEN THEME
+         Applied only to the splash activity (if you have one).
+         Shows a solid primary background while the app initialises.
+         ════════════════════════════════════════════════════════════════ -->
+    <style name="Theme.ViTour.Splash" parent="Theme.ViTour">
+        <item name="android:statusBarColor">@color/vitour_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/vitour_primary</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:colorBackground">@color/vitour_primary</item>
+    </style>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         AUTH THEME
+         Used by LoginActivity and RegisterActivity.
+         Keeps white status bar for the clean auth screens.
+         ════════════════════════════════════════════════════════════════ -->
+    <style name="Theme.ViTour.Auth" parent="Theme.ViTour">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         WINDOW ANIMATIONS
+         Smooth slide transitions between activities.
+         Reference via android:windowAnimationStyle in main theme.
+         ════════════════════════════════════════════════════════════════ -->
+    <style name="WindowAnimation.ViTour" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
+    </style>
+
 </resources>

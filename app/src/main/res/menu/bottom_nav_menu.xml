@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bottom_nav_menu.xml
+    ─────────────────────────────────────────────────────────────────
+    4-tab ViTour navigation: Home · Search · Booking · Profile
+
+    RULE: Each item's android:id MUST exactly match a fragment ID
+          in nav_graph.xml — NavigationUI.setupWithNavController()
+          uses this match to switch tabs automatically.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Tab 1 — Home: featured tours, popular tours -->
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/nav_home" />
+
+    <!-- Tab 2 — Search: full-text tour/destination search -->
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_nav_search"
+        android:title="@string/nav_search" />
+
+    <!-- Tab 3 — Booking: user's active and past bookings -->
+    <item
+        android:id="@+id/bookingFragment"
+        android:icon="@drawable/ic_nav_booking"
+        android:title="@string/nav_booking" />
+
+    <!-- Tab 4 — Profile: user info and logout -->
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_nav_profile"
+        android:title="@string/nav_profile" />
+
+</menu>

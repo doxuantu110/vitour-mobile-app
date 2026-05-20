@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml — Shell layout for MainActivity
+    ─────────────────────────────────────────────────────────────────
+    Layout structure:
+    ┌────────────────────────────────────────────────────────┐
+    │  NavHostFragment  (fills screen, sits behind bottom nav│
+    │  via paddingBottom = bottomNav height)                 │
+    ├────────────────────────────────────────────────────────┤
+    │  BottomNavigationView  (docked at bottom, elevation 8) │
+    └────────────────────────────────────────────────────────┘
+
+    WHY CoordinatorLayout:
+    • Allows BottomNavigationView to dock to the bottom via layout_gravity
+    • Enables future Snackbar ↔ BottomNav coordination (auto-slides)
+    • Works with CollapsingToolbarLayout if you add one later
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vitour_background">
+
+    <!--
+        Fragment Container
+        android:name declares NavHostFragment as the host.
+        app:defaultNavHost=true captures the system Back button.
+        app:navGraph points to the graph that defines all destinations.
+
+        layout_marginBottom: ensures fragment content doesn't hide
+        behind the BottomNavigationView (56dp is the standard height).
+    -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/size_bottom_nav_height"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
+    <!--
+        BottomNavigationView (Material Design 3)
+
+        Attributes:
+          menu         → references bottom_nav_menu.xml (4 items)
+          labelVisibilityMode="labeled" → always show text labels
+          itemIconTint → single color for all icons (active = primary)
+          itemTextColor → label color for active/inactive states
+
+        To use a color state list for active/inactive colors:
+          Create res/color/bottom_nav_item_color.xml with a selector,
+          then set itemIconTint="@color/bottom_nav_item_color".
+    -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_bottom_nav_height"
+        android:layout_gravity="bottom"
+        android:background="@color/vitour_surface"
+        app:elevation="@dimen/elevation_nav_bar"
+        app:itemIconSize="@dimen/size_icon_md"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemRippleColor="@color/vitour_primary_alpha_12"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_search.xml — Tab 2: Search
+    ─────────────────────────────────────────────────────────────────
+    Structure:
+    • SearchBar (Material3) — always visible at top
+    • RecyclerView — shows results / suggestions
+    • Empty state view — shown before first search
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vitour_background"
+    android:orientation="vertical">
+
+    <!-- ── Search Bar ──────────────────────────────────────────────── -->
+    <!--
+        Swapped to TextInputLayout since SearchBar does not support getEditText().
+    -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_bar"
+        style="@style/Widget.ViTour.TextInput.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/search_hint"
+        app:startIconDrawable="@drawable/ic_nav_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- ── Results RecyclerView ────────────────────────────────────── -->
+    <!--
+        Shown when search results are available.
+        Hidden when the empty state is visible.
+        Uses the same TourAdapter / item_tour_card layout as HomeFragment.
+    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <!-- ── Empty / Idle State ──────────────────────────────────────── -->
+    <!--
+        Shown before user types anything (idle) or when no results found.
+        SearchFragment controls visibility based on query length + result count.
+    -->
+    <LinearLayout
+        android:id="@+id/layout_search_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_search_empty_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/tv_search_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/search_empty"
+            android:textColor="@color/vitour_on_surface_variant"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

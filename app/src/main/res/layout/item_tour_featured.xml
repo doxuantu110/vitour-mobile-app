@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_tour_featured.xml
+    ─────────────────────────────────────────────────────────────────
+    Material3 card used in the horizontal featured carousel.
+    Wider aspect ratio, larger corner radius (24dp), and different
+    layout compared to the standard vertical card.
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.ViTour.Card.Featured"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/spacing_card_gap"
+    android:clickable="true"
+    android:focusable="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Cover image -->
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_card_featured_height"
+            android:scaleType="centerCrop"
+            android:contentDescription="Featured tour cover image" />
+
+        <!-- Dark gradient overlay for text legibility -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_image_scrim" />
+
+        <!-- Content overlaid on image -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_16">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tv_tour_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.ViTour.OnImage" />
+
+            <!-- Info row (Location + Rating) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Location icon -->
+                <ImageView
+                    android:layout_width="@dimen/size_icon_xs"
+                    android:layout_height="@dimen/size_icon_xs"
+                    android:src="@drawable/ic_location"
+                    app:tint="@color/white" />
+
+                <!-- Location text -->
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_body_sm" />
+
+                <!-- Rating icon -->
+                <ImageView
+                    android:layout_width="@dimen/size_icon_xs"
+                    android:layout_height="@dimen/size_icon_xs"
+                    android:src="@drawable/ic_star" />
+
+                <!-- Rating text -->
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_4"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_body_sm"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Price tag (top right) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:layout_marginEnd="@dimen/spacing_16"
+            app:cardBackgroundColor="@color/vitour_surface_variant"
+            app:cardCornerRadius="@dimen/radius_small"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacing_8"
+                android:paddingTop="@dimen/spacing_4"
+                android:paddingEnd="@dimen/spacing_8"
+                android:paddingBottom="@dimen/spacing_4"
+                android:textColor="@color/vitour_primary"
+                android:textSize="@dimen/text_label"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

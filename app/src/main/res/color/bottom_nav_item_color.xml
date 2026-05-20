@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bottom_nav_item_color.xml  (res/color/)
+    ─────────────────────────────────────────────────────────────────
+    Color state list for BottomNavigationView icon tint AND text color.
+    Active = primary blue, Inactive = muted grey.
+
+    Usage in activity_main.xml:
+      app:itemIconTint="@color/bottom_nav_item_color"
+      app:itemTextColor="@color/bottom_nav_item_color"
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Active / checked tab -->
+    <item
+        android:state_checked="true"
+        android:color="@color/vitour_nav_active" />
+    <!-- Pressed state -->
+    <item
+        android:state_pressed="true"
+        android:color="@color/vitour_primary_light" />
+    <!-- Default (inactive) -->
+    <item android:color="@color/vitour_nav_inactive" />
+</selector>

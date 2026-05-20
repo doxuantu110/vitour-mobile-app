@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+╔══════════════════════════════════════════════════════════════════════╗
+║           ViTour Design System — Dimensions & Spacing               ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  SPACING SCALE (8-point grid)                                       ║
+║  All spacing values are multiples of 4dp.                           ║
+║  Use @dimen/spacing_* everywhere — never hardcode dp values.        ║
+║                                                                     ║
+║  NAMING CONVENTION                                                  ║
+║  spacing_*   → margins, paddings, gaps between elements             ║
+║  radius_*    → corner radii for cards, buttons, chips               ║
+║  size_*      → fixed icon/avatar/component sizes                    ║
+║  elevation_* → Material elevation levels                            ║
+║  text_*      → font sizes (use @dimen in styles.xml for text)       ║
+║  line_*      → line heights, stroke widths                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+-->
+<resources>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SPACING — 8-Point Grid
+         Use these for: padding, margin, gap between elements.
+         ════════════════════════════════════════════════════════════════ -->
+    <dimen name="spacing_2">2dp</dimen>
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_6">6dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_10">10dp</dimen>
+    <dimen name="spacing_12">12dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_28">28dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
+    <dimen name="spacing_40">40dp</dimen>
+    <dimen name="spacing_48">48dp</dimen>
+    <dimen name="spacing_56">56dp</dimen>
+    <dimen name="spacing_64">64dp</dimen>
+    <dimen name="spacing_80">80dp</dimen>
+
+    <!-- Semantic spacing aliases (readable names for common uses) -->
+    <dimen name="spacing_screen_horizontal">20dp</dimen>  <!-- left/right screen margin -->
+    <dimen name="spacing_screen_top">24dp</dimen>         <!-- top of screen content -->
+    <dimen name="spacing_card_padding">16dp</dimen>       <!-- inside card padding -->
+    <dimen name="spacing_card_gap">12dp</dimen>           <!-- gap between cards in a list -->
+    <dimen name="spacing_section_gap">28dp</dimen>        <!-- gap between page sections -->
+    <dimen name="spacing_chip_horizontal">12dp</dimen>    <!-- chip horizontal padding -->
+    <dimen name="spacing_chip_vertical">6dp</dimen>       <!-- chip vertical padding -->
+    <dimen name="spacing_button_horizontal">24dp</dimen>  <!-- button horizontal padding -->
+    <dimen name="spacing_input_padding">16dp</dimen>      <!-- TextInputLayout padding -->
+    <dimen name="spacing_list_item">16dp</dimen>          <!-- list item padding -->
+    <dimen name="spacing_icon_text">8dp</dimen>           <!-- gap between icon and text -->
+
+    <!-- ════════════════════════════════════════════════════════════════
+         CORNER RADII — Travenor Rounded Style
+         Large rounded corners throughout: cards use 20dp, buttons 14dp.
+         ════════════════════════════════════════════════════════════════ -->
+    <dimen name="radius_none">0dp</dimen>
+    <dimen name="radius_small">8dp</dimen>      <!-- chips, tags, small badges -->
+    <dimen name="radius_medium">12dp</dimen>    <!-- input fields, small cards -->
+    <dimen name="radius_large">16dp</dimen>     <!-- bottom sheets, dialog cards -->
+    <dimen name="radius_xlarge">20dp</dimen>    <!-- tour cards — Travenor signature -->
+    <dimen name="radius_xxlarge">24dp</dimen>   <!-- hero cards, featured carousel -->
+    <dimen name="radius_full">100dp</dimen>     <!-- pills: buttons, search bar, avatar -->
+
+    <!-- Semantic radius aliases -->
+    <dimen name="radius_card">20dp</dimen>          <!-- standard tour card -->
+    <dimen name="radius_card_featured">24dp</dimen> <!-- featured/hero carousel card -->
+    <dimen name="radius_button">14dp</dimen>        <!-- primary action buttons -->
+    <dimen name="radius_button_pill">100dp</dimen>  <!-- pill-shaped buttons -->
+    <dimen name="radius_chip">100dp</dimen>         <!-- filter chips -->
+    <dimen name="radius_input">12dp</dimen>         <!-- TextInputLayout corners -->
+    <dimen name="radius_avatar">100dp</dimen>       <!-- circular user avatar -->
+    <dimen name="radius_badge">100dp</dimen>        <!-- notification badge pill -->
+    <dimen name="radius_bottom_sheet">24dp</dimen>  <!-- bottom sheet top corners -->
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SIZES — Component Dimensions
+         ════════════════════════════════════════════════════════════════ -->
+
+    <!-- Icons -->
+    <dimen name="size_icon_xs">16dp</dimen>     <!-- inline icons (rating star, tag) -->
+    <dimen name="size_icon_sm">20dp</dimen>     <!-- list item secondary icons -->
+    <dimen name="size_icon_md">24dp</dimen>     <!-- standard icons, bottom nav icons -->
+    <dimen name="size_icon_lg">32dp</dimen>     <!-- section header icons -->
+    <dimen name="size_icon_xl">48dp</dimen>     <!-- empty state icons -->
+
+    <!-- Avatars -->
+    <dimen name="size_avatar_sm">32dp</dimen>   <!-- comment/review avatar -->
+    <dimen name="size_avatar_md">48dp</dimen>   <!-- list item avatar -->
+    <dimen name="size_avatar_lg">72dp</dimen>   <!-- profile screen avatar -->
+    <dimen name="size_avatar_xl">96dp</dimen>   <!-- profile hero avatar -->
+
+    <!-- Images -->
+    <dimen name="size_card_image_height">200dp</dimen>    <!-- tour card cover image -->
+    <dimen name="size_card_featured_height">240dp</dimen> <!-- featured carousel image -->
+    <dimen name="size_card_horizontal_width">200dp</dimen><!-- horizontal scroll card width -->
+
+    <!-- Buttons & Inputs -->
+    <dimen name="size_button_height">52dp</dimen>         <!-- primary full-width button -->
+    <dimen name="size_button_height_sm">40dp</dimen>      <!-- compact button (e.g. chip) -->
+    <dimen name="size_input_height">56dp</dimen>          <!-- TextInputLayout min height -->
+    <dimen name="size_bottom_nav_height">64dp</dimen>     <!-- BottomNavigationView height -->
+    <dimen name="size_toolbar_height">56dp</dimen>        <!-- Toolbar height -->
+    <dimen name="size_search_bar_height">56dp</dimen>     <!-- SearchBar height -->
+
+    <!-- ════════════════════════════════════════════════════════════════
+         ELEVATION — Material Design Levels
+         ════════════════════════════════════════════════════════════════ -->
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_card">2dp</dimen>         <!-- tour cards at rest -->
+    <dimen name="elevation_card_raised">4dp</dimen>  <!-- card on press/hover -->
+    <dimen name="elevation_fab">6dp</dimen>          <!-- Floating Action Button -->
+    <dimen name="elevation_nav_bar">8dp</dimen>      <!-- BottomNavigationView -->
+    <dimen name="elevation_modal">16dp</dimen>       <!-- dialogs, bottom sheets -->
+
+    <!-- ════════════════════════════════════════════════════════════════
+         TYPOGRAPHY — Font Sizes
+         Use with @style/TextAppearance.ViTour.* (from styles.xml).
+         Listed here so you can reference them via @dimen if needed.
+         ════════════════════════════════════════════════════════════════ -->
+    <dimen name="text_display">32sp</dimen>        <!-- large hero headlines -->
+    <dimen name="text_headline_lg">28sp</dimen>    <!-- screen titles -->
+    <dimen name="text_headline_md">24sp</dimen>    <!-- section titles -->
+    <dimen name="text_headline_sm">20sp</dimen>    <!-- card titles -->
+    <dimen name="text_title_lg">18sp</dimen>       <!-- list item titles -->
+    <dimen name="text_title_md">16sp</dimen>       <!-- body emphasis -->
+    <dimen name="text_title_sm">14sp</dimen>       <!-- small titles, labels -->
+    <dimen name="text_body_lg">16sp</dimen>        <!-- primary body text -->
+    <dimen name="text_body_md">14sp</dimen>        <!-- secondary body text -->
+    <dimen name="text_body_sm">13sp</dimen>        <!-- captions, metadata -->
+    <dimen name="text_label">12sp</dimen>          <!-- chip labels, tags -->
+    <dimen name="text_overline">11sp</dimen>       <!-- ALL CAPS section headers -->
+
+    <!-- ════════════════════════════════════════════════════════════════
+         STROKES & DIVIDERS
+         ════════════════════════════════════════════════════════════════ -->
+    <dimen name="stroke_thin">1dp</dimen>          <!-- card borders, dividers -->
+    <dimen name="stroke_medium">1.5dp</dimen>      <!-- focused input stroke -->
+    <dimen name="stroke_thick">2dp</dimen>         <!-- selected tab indicator -->
+
+</resources>

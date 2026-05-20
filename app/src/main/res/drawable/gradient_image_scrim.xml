@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    gradient_image_scrim.xml
+    ─────────────────────────────────────────────────────────────────
+    Dark overlay for tour card images — ensures white text is always
+    legible over any photo.
+
+    Usage: Place as a foreground layer above an ImageView inside a
+           FrameLayout or ConstraintLayout.
+
+      <ImageView android:src="@{tour.coverUrl}" />
+      <View android:background="@drawable/gradient_image_scrim"
+            android:layout_gravity="bottom"
+            android:layout_height="120dp" />
+      <TextView android:text="@{tour.name}" ... />
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="@color/vitour_image_scrim_start"
+        android:endColor="@color/vitour_image_scrim_end"
+        android:angle="270"
+        android:type="linear" />
+</shape>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_home.xml — Home Tab (Tab 1)
+    ─────────────────────────────────────────────────────────────────
+    Sections:
+      1. Header: greeting + notification bell
+      2. Search bar (navigates to SearchFragment on tap)
+      3. Category chips (horizontal scroll filter)
+      4. Featured / Popular tours — horizontal RecyclerView
+      5. Recommended tours — vertical RecyclerView
+
+    Architecture:
+      SwipeRefreshLayout → NestedScrollView → LinearLayout (all sections)
+
+    All spacing, colors, and text sizes use design system tokens.
+    RecyclerViews are powered by HomeFragment.java + HomeViewModel.java.
+-->
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_24">
+
+            <!-- ════════════════════════════════════════════════════════
+                 SECTION 1 — HEADER (Greeting + Notification Bell)
+                 ════════════════════════════════════════════════════════ -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacing_screen_horizontal"
+                android:paddingTop="@dimen/spacing_screen_top"
+                android:paddingEnd="@dimen/spacing_screen_horizontal">
+
+                <!-- Greeting sub-label (overline style) -->
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Explore the world 🌍"
+                    android:textAppearance="@style/TextAppearance.ViTour.Overline"
+                    android:textColor="@color/vitour_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_notification" />
+
+                <!-- Main greeting headline -->
+                <TextView
+                    android:id="@+id/tv_greeting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/home_greeting"
+                    android:textAppearance="@style/TextAppearance.ViTour.Headline.Medium"
+                    app:layout_constraintEnd_toStartOf="@id/btn_notification"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label" />
+
+                <!-- Notification button (top-right) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_notification"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:icon="@drawable/ic_nav_profile"
+                    app:iconGravity="textStart"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/vitour_primary"
+                    app:strokeColor="@color/vitour_outline"
+                    app:strokeWidth="@dimen/stroke_thin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ════════════════════════════════════════════════════════
+                 SECTION 2 — SEARCH BAR
+                 Tapping this navigates to SearchFragment (Tab 2).
+                 It is NOT editable here — it's a navigation shortcut.
+                 In HomeFragment.java: binding.searchBar.setOnClickListener
+                 → NavController.navigate(R.id.searchFragment)
+                 ════════════════════════════════════════════════════════ -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:hint="Search destinations" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ════════════════════════════════════════════════════════
+                 SECTION 3 — CATEGORY CHIPS
+                 Horizontal scrollable filter row.
+                 Chip clicks filter the tour sections below.
+                 ════════════════════════════════════════════════════════ -->
+
+            <!-- Section label row: "Categories" + "See All" -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_section_gap"
+                android:layout_marginEnd="@dimen/spacing_screen_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Categories"
+                    android:textAppearance="@style/TextAppearance.ViTour.Title.Medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_see_all_categories"
+                    style="@style/Widget.ViTour.Button.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/text_label" />
+
+            </LinearLayout>
+
+            <!-- Horizontal category chip row -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/spacing_screen_horizontal"
+                android:paddingEnd="@dimen/spacing_screen_horizontal"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="@dimen/spacing_8"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+
+                    <!-- Chips are added programmatically in HomeFragment
+                         from MockData.getCategories(). Static defaults shown here. -->
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_all"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:checked="true"
+                        android:text="All" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_beach"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:text="🏖 Beach" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_mountain"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:text="⛰ Mountain" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_cultural"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:text="🏛 Cultural" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_adventure"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:text="🧗 Adventure" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_food"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_button_height_sm"
+                        android:text="🍜 Food" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <!-- ════════════════════════════════════════════════════════
+                 SECTION 4 — POPULAR TOURS (horizontal carousel)
+                 Each card uses item_tour_featured.xml (wider card).
+                 Powered by: rvFeatured + featuredAdapter in HomeFragment.
+                 ════════════════════════════════════════════════════════ -->
+
+            <!-- Section header row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_section_gap"
+                android:layout_marginEnd="@dimen/spacing_screen_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/section_popular"
+                    android:textAppearance="@style/TextAppearance.ViTour.Title.Medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_see_all_popular"
+                    style="@style/Widget.ViTour.Button.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/text_label" />
+
+            </LinearLayout>
+
+            <!-- Horizontal featured carousel with loading/empty states -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12">
+
+                <!-- Loading Spinner -->
+                <ProgressBar
+                    android:id="@+id/progress_featured"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <!-- Empty State -->
+                <TextView
+                    android:id="@+id/tv_featured_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_32"
+                    android:text="No featured tours available."
+                    android:textColor="@color/vitour_text_tertiary"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_featured"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/spacing_screen_horizontal"
+                    android:paddingEnd="@dimen/spacing_screen_horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </FrameLayout>
+
+            <!-- ════════════════════════════════════════════════════════
+                 SECTION 5 — RECOMMENDED TOURS (vertical list)
+                 Each card uses item_tour_card.xml (full-width card).
+                 Powered by: rvPopular + popularAdapter in HomeFragment.
+                 ════════════════════════════════════════════════════════ -->
+
+            <!-- Section header row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_section_gap"
+                android:layout_marginEnd="@dimen/spacing_screen_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/section_featured"
+                    android:textAppearance="@style/TextAppearance.ViTour.Title.Medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_see_all_recommended"
+                    style="@style/Widget.ViTour.Button.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/text_label" />
+
+            </LinearLayout>
+
+            <!-- Vertical recommended list with loading/empty states -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_screen_horizontal"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:layout_marginEnd="@dimen/spacing_screen_horizontal">
+
+                <!-- Loading Spinner -->
+                <ProgressBar
+                    android:id="@+id/progress_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <!-- Empty State -->
+                <TextView
+                    android:id="@+id/tv_popular_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_32"
+                    android:text="No recommended tours right now."
+                    android:textColor="@color/vitour_text_tertiary"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

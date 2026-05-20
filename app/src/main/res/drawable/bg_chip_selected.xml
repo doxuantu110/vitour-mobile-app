@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_chip_selected.xml
+    ─────────────────────────────────────────────────────────────────
+    Selected state background for filter chips (category buttons).
+    Use this as the chip background when a filter is active.
+
+    Usage (in XML):
+      android:background="@drawable/bg_chip_selected"
+
+    Or toggle programmatically:
+      chip.setBackgroundResource(
+          isSelected ? R.drawable.bg_chip_selected : R.drawable.bg_chip_default);
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/vitour_primary" />
+    <corners android:radius="@dimen/radius_chip" />
+</shape>

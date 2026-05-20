@@ -2,6 +2,61 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ═══════════════════════════════════════════════════════════════
+         PERMISSIONS
+         ─────────────────────────────────────────────────────────────
+         Only declare permissions the app genuinely needs.
+         Runtime permissions (LOCATION, CAMERA) must also be requested
+         programmatically with ActivityResultContracts.RequestPermission.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- INTERNET: Required by Retrofit (REST API) + all Firebase SDKs -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- ACCESS_NETWORK_STATE: Check connectivity before making API calls -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+        LOCATION (runtime permissions — must also call requestPermissions() in code)
+        ACCESS_FINE_LOCATION:   GPS — precise location for FusedLocationProviderClient
+        ACCESS_COARSE_LOCATION: Network/WiFi — fallback when GPS is unavailable
+        Both are needed by Google Maps FusedLocationProviderClient.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--
+        FOREGROUND_SERVICE + FOREGROUND_SERVICE_LOCATION:
+        Uncomment if you add a background location tracking service (e.g. tour route).
+    -->
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" /> -->
+
+    <!--
+        READ_MEDIA_IMAGES (API 33+) / READ_EXTERNAL_STORAGE (API < 33):
+        Required if users pick a profile photo from the gallery.
+        Uncomment when implementing profile photo upload.
+    -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="ScopedStorage" /> -->
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HARDWARE FEATURES (optional — prevents install on unsupported devices)
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Maps works best with OpenGL ES 2.0; required by Google Maps SDK -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- Mark location as optional so the app still installs on tablets without GPS -->
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         APPLICATION
+         ═══════════════════════════════════════════════════════════════ -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,18 +65,66 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ViTour">
+        android:theme="@style/Theme.ViTour"
+        tools:targetApi="31">
+
+        <!--
+            Google Maps API Key
+            ───────────────────
+            Value is injected from local.properties via manifestPlaceholders
+            in app/build.gradle.kts so the key is NEVER committed to git.
+
+            Setup:
+              1. Get a Maps API key from https://console.cloud.google.com
+              2. Add to local.properties (gitignored):
+                   MAPS_API_KEY=AIzaSy...
+              3. Enable "Maps SDK for Android" in the Cloud Console
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <!--
+            LoginActivity — LAUNCHER entry point.
+            Checks FirebaseAuth.getCurrentUser(); skips to MainActivity if signed in.
+        -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ViTour">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- RegisterActivity — reached from LoginActivity only -->
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!--
+            MainActivity — main shell with BottomNavigationView + NavHostFragment.
+            Set FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK when starting
+            from Login so the user cannot press Back to return.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <!--
+            ⚠ DEBUG ONLY — Remove before production release.
+            FirebaseTestActivity: verifies Auth, Firestore, and Storage integration.
+            To launch: start this Activity from LoginActivity (e.g. a debug button),
+            OR temporarily swap it in as the LAUNCHER activity below.
+        -->
+        <activity
+            android:name=".ui.test.FirebaseTestActivity"
+            android:exported="false"
+            android:label="Firebase Test" />
+
     </application>
 
 </manifest>

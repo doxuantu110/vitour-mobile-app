@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_firebase_test.xml
+    ─────────────────────────────────────────────────────────────────
+    Temporary layout used ONLY by FirebaseTestActivity.
+    Delete this file (and the Activity) before shipping to production.
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F172A"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="🔥 Firebase Test Suite"
+            android:textColor="#F8FAFC"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_project_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textColor="#94A3B8"
+            android:textSize="12sp" />
+
+        <!-- ── Section: Auth ──────────────────────────────────────── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="AUTH"
+            android:textColor="#64748B"
+            android:textSize="11sp"
+            android:letterSpacing="0.15" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="Test email"
+            app:boxStrokeColor="#334155"
+            app:hintTextColor="#94A3B8">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:text="test@vitour.dev"
+                android:textColor="#F1F5F9" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Test password"
+            app:boxStrokeColor="#334155"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="#94A3B8">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="test1234"
+                android:textColor="#F1F5F9" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Auth buttons row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Register"
+                android:textSize="13sp"
+                app:backgroundTint="#1D4ED8" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="Login"
+                android:textSize="13sp"
+                app:backgroundTint="#0F766E" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Sign Out"
+            android:textSize="13sp"
+            app:strokeColor="#475569" />
+
+        <!-- Auth result card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_auth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#1E293B"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+            <TextView
+                android:id="@+id/tv_auth_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:padding="12dp"
+                android:text="⬜ Auth — not tested"
+                android:textColor="#94A3B8"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- ── Section: Firestore ─────────────────────────────────── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="FIRESTORE"
+            android:textColor="#64748B"
+            android:textSize="11sp"
+            android:letterSpacing="0.15" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_firestore_write"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Write"
+                android:textSize="13sp"
+                app:backgroundTint="#7C3AED" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_firestore_read"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="Read"
+                android:textSize="13sp"
+                app:backgroundTint="#7C3AED" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_firestore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#1E293B"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+            <TextView
+                android:id="@+id/tv_firestore_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:padding="12dp"
+                android:text="⬜ Firestore — not tested"
+                android:textColor="#94A3B8"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- ── Section: Storage ──────────────────────────────────── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="STORAGE"
+            android:textColor="#64748B"
+            android:textSize="11sp"
+            android:letterSpacing="0.15" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_storage_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Upload Test File"
+            android:textSize="13sp"
+            app:backgroundTint="#B45309" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_storage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="#1E293B"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+            <TextView
+                android:id="@+id/tv_storage_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:padding="12dp"
+                android:text="⬜ Storage — not tested"
+                android:textColor="#94A3B8"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Run all button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_run_all"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="▶  Run All Tests"
+            android:textSize="15sp"
+            app:backgroundTint="#0F172A"
+            app:strokeColor="#38BDF8"
+            app:strokeWidth="1dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    </LinearLayout>
+</ScrollView>

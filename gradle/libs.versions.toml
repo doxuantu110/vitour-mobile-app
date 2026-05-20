@@ -1,33 +1,140 @@
 [versions]
-agp = "9.0.1"
-coreKtx = "1.18.0"
-junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.13.0"
-kotlin = "2.0.21"
-composeBom = "2024.09.00"
-firebaseDatabase = "22.0.1"
+# ── Build Tooling ────────────────────────────────────────────────────────────
+agp            = "8.7.3"                   # Android Gradle Plugin
+
+# ── Testing ──────────────────────────────────────────────────────────────────
+junit          = "4.13.2"
+junitVersion   = "1.2.1"
+espressoCore   = "3.6.1"
+
+# ── AndroidX Core & UI ───────────────────────────────────────────────────────
+appcompat           = "1.7.0"
+coreKtx             = "1.13.1"
+activity            = "1.9.3"
+constraintlayout    = "2.2.0"
+recyclerview        = "1.3.2"
+cardview            = "1.0.0"
+swiperefreshlayout  = "1.1.0"
+
+# ── Material Design 3 ────────────────────────────────────────────────────────
+material = "1.12.0"
+
+# ── Navigation Component ─────────────────────────────────────────────────────
+# Used for: Fragment back-stack, BottomNav wiring, Safe Args (future)
+navigation = "2.8.4"
+
+# ── Lifecycle (ViewModel + LiveData) ─────────────────────────────────────────
+# Used for: MVVM state holders that survive rotation
+lifecycle = "2.8.7"
+
+# ── Image Loading: Glide ─────────────────────────────────────────────────────
+# Used for: loading tour cover images, user avatars from URLs
+glide = "4.16.0"
+
+# ── Networking: Retrofit + OkHttp ────────────────────────────────────────────
+# Used for: calling REST API endpoints in TourApiService
+retrofit = "2.11.0"
+okhttp   = "4.12.0"
+
+# ── JSON Parsing: Gson ───────────────────────────────────────────────────────
+# Used for: Retrofit converter — maps JSON ↔ Java model classes (Tour, etc.)
+gson = "2.11.0"
+
+# ── Reactive Programming: RxJava 3 ───────────────────────────────────────────
+# Used for: chaining async Retrofit calls, transforming streams, debouncing
+# search input. Replaces Callback<T> with Observable<T>/Single<T>/Flowable<T>.
+rxjava3       = "3.1.9"
+rxandroid3    = "3.0.2"
+retrofit-rxjava3 = "2.11.0"    # retrofit2 adapter for RxJava3
+
+# ── Firebase ─────────────────────────────────────────────────────────────────
+# BoM (Bill of Materials) — manages ALL Firebase lib versions together.
+# Never pin individual Firebase library versions when using BoM.
+firebaseBom = "33.6.0"
+
+# ── Google Maps ──────────────────────────────────────────────────────────────
+# Used for: showing destination map in TourDetailFragment / ExploreFragment
+googleMaps     = "19.0.0"
+googleLocation = "21.3.0"     # FusedLocationProvider — user's current location
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+# ── Testing ──────────────────────────────────────────────────────────────────
+junit                  = { group = "junit",                  name = "junit",          version.ref = "junit" }
+androidx-junit         = { group = "androidx.test.ext",      name = "junit",          version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core",  version.ref = "espressoCore" }
+
+# ── AndroidX Core & UI ───────────────────────────────────────────────────────
+androidx-appcompat          = { group = "androidx.appcompat",          name = "appcompat",          version.ref = "appcompat" }
+androidx-core-ktx           = { group = "androidx.core",               name = "core-ktx",           version.ref = "coreKtx" }
+androidx-activity           = { group = "androidx.activity",            name = "activity",            version.ref = "activity" }
+androidx-constraintlayout   = { group = "androidx.constraintlayout",   name = "constraintlayout",   version.ref = "constraintlayout" }
+androidx-recyclerview        = { group = "androidx.recyclerview",       name = "recyclerview",       version.ref = "recyclerview" }
+androidx-cardview            = { group = "androidx.cardview",           name = "cardview",           version.ref = "cardview" }
+androidx-swiperefreshlayout  = { group = "androidx.swiperefreshlayout",name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+# ── Material Design 3 ────────────────────────────────────────────────────────
+# Provides: MaterialCardView, BottomNavigationView, TextInputLayout,
+#           MaterialButton, SearchBar, ShapeableImageView, MaterialAlertDialog
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# ── Navigation Component ─────────────────────────────────────────────────────
+# navigation-fragment: NavHostFragment, FragmentNavigator
+# navigation-ui: NavigationUI.setupWithNavController()
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
+androidx-navigation-ui       = { group = "androidx.navigation", name = "navigation-ui",       version.ref = "navigation" }
+
+# ── Lifecycle ─────────────────────────────────────────────────────────────────
+# lifecycle-viewmodel: ViewModel base class
+# lifecycle-livedata:  MutableLiveData, Transformations.switchMap
+# lifecycle-runtime:   LifecycleOwner, lifecycle-aware components
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
+androidx-lifecycle-livedata  = { group = "androidx.lifecycle", name = "lifecycle-livedata",  version.ref = "lifecycle" }
+androidx-lifecycle-runtime   = { group = "androidx.lifecycle", name = "lifecycle-runtime",   version.ref = "lifecycle" }
+
+# ── Glide ─────────────────────────────────────────────────────────────────────
+# Handles: image download, disk/memory caching, transformations (circleCrop),
+#          crossfade transitions. Used in TourAdapter and ProfileFragment.
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+# ── Retrofit ─────────────────────────────────────────────────────────────────
+# retrofit:                HTTP client code generation from interface
+# retrofit-converter-gson: auto-deserializes JSON responses into Tour / User POJOs
+# okhttp-logging:          logs full request/response bodies in Logcat (debug only)
+retrofit               = { group = "com.squareup.retrofit2", name = "retrofit",            version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson",     version.ref = "retrofit" }
+okhttp-logging          = { group = "com.squareup.okhttp3",   name = "logging-interceptor", version.ref = "okhttp" }
+
+# ── Gson (standalone) ─────────────────────────────────────────────────────────
+# Used independently of Retrofit for manual JSON serialization if needed.
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+# ── RxJava 3 ─────────────────────────────────────────────────────────────────
+# rxjava3:          core — Observable, Single, Flowable, Completable, operators
+# rxandroid3:       AndroidSchedulers.mainThread() — post results to UI thread
+# retrofit-rxjava3: makes Retrofit return Single<T> / Observable<T> instead of Call<T>
+rxjava3              = { group = "io.reactivex.rxjava3", name = "rxjava",                version.ref = "rxjava3" }
+rxandroid3           = { group = "io.reactivex.rxjava3", name = "rxandroid",             version.ref = "rxandroid3" }
+retrofit-adapter-rxjava3 = { group = "com.squareup.retrofit2", name = "adapter-rxjava3", version.ref = "retrofit-rxjava3" }
+
+# ── Firebase (BoM-managed — NO version on individual libs) ────────────────────
+# firebase-auth:      email/password sign-in, session management
+# firebase-firestore: NoSQL cloud database — tours, users, bookmarks collections
+# firebase-storage:   upload/download user profile photos, tour images
+# firebase-analytics: event tracking (optional but included by default)
+firebase-bom       = { group = "com.google.firebase", name = "firebase-bom",       version.ref = "firebaseBom" }
+firebase-auth      = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-storage   = { group = "com.google.firebase", name = "firebase-storage" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+
+# ── Google Maps ───────────────────────────────────────────────────────────────
+# maps-android:     SupportMapFragment, GoogleMap, LatLng, Marker
+# play-location:    FusedLocationProviderClient — gets user's GPS coordinates
+google-maps     = { group = "com.google.android.gms", name = "play-services-maps",     version.ref = "googleMaps" }
+google-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "googleLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+android-library     = { id = "com.android.library",     version.ref = "agp" }
+# google-services applies google-services.json (Firebase + Maps API key)
+google-services     = { id = "com.google.gms.google-services", version = "4.4.2" }
