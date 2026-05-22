@@ -248,6 +248,50 @@ public class TourRepository {
         liveData.setValue(Resource.success(result));
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // Detail (Single Tour)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Loads a single tour by ID. Uses get() for a one-time fetch (since details
+     * rarely change rapidly while viewed, but we can also use SnapshotListener if preferred).
+     * For now, using get() for simple fetching.
+     */
+    public LiveData<Resource<Tour>> getTourById(String tourId) {
+        MutableLiveData<Resource<Tour>> liveData = new MutableLiveData<>();
+        liveData.setValue(Resource.loading(null));
+
+        Log.d(TAG, "getTourById() called for tourId=" + tourId);
+
+        db.collection(Constants.COLLECTION_TOURS).document(tourId).get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        try {
+                            Tour tour = snapshot.toObject(Tour.class);
+                            if (tour != null) {
+                                if (tour.getId() == null) tour.setId(snapshot.getId());
+                                Log.d(TAG, "getTourById() SUCCESS — id=" + tour.getId());
+                                liveData.setValue(Resource.success(tour));
+                            } else {
+                                liveData.setValue(Resource.error("Failed to parse tour", null));
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, "getTourById() Exception parsing: " + e.getMessage(), e);
+                            liveData.setValue(Resource.error("Parsing error: " + e.getMessage(), null));
+                        }
+                    } else {
+                        Log.w(TAG, "getTourById() FAILED: Document does not exist");
+                        liveData.setValue(Resource.error("Tour not found", null));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "getTourById() FAILED: " + e.getMessage(), e);
+                    liveData.setValue(Resource.error("Failed to load tour details", null));
+                });
+
+        return liveData;
+    }
+
     /**
      * Converts a list of Firestore DocumentSnapshots to a list of Tour objects.
      * Null-safe: skips documents that fail to deserialize.

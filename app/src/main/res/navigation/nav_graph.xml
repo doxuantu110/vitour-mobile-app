@@ -35,16 +35,28 @@
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_home">
 
-        <!--
-            Example action to navigate to a detail screen.
-            Uncomment and add TourDetailFragment when ready:
+        <!-- Navigation to detail screen -->
+        <action
+            android:id="@+id/action_home_to_tour_detail"
+            app:destination="@id/tourDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
-            <action
-                android:id="@+id/action_home_to_tour_detail"
-                app:destination="@id/tourDetailFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left" />
-        -->
+    <!-- ═══════════════════════════════════════════════════════════
+         TOUR DETAIL
+         Takes tourId as an argument.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/tourDetailFragment"
+        android:name="com.uit.vitour.ui.detail.TourDetailFragment"
+        android:label="Tour Details"
+        tools:layout="@layout/fragment_tour_detail">
+        <argument
+            android:name="tourId"
+            app:argType="string" />
     </fragment>
 
     <!-- ═══════════════════════════════════════════════════════════

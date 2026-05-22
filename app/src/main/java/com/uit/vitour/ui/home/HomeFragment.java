@@ -63,8 +63,10 @@ public class HomeFragment extends Fragment {
     private void setupRecyclerViews() {
         // Featured (Horizontal)
         featuredAdapter = new FeaturedTourAdapter(tour -> {
-            Toast.makeText(getContext(), "Clicked: " + tour.getName(), Toast.LENGTH_SHORT).show();
-            // TODO: Navigate to detail
+            Bundle args = new Bundle();
+            args.putString("tourId", tour.getId());
+            NavController nav = Navigation.findNavController(requireView());
+            nav.navigate(R.id.action_home_to_tour_detail, args);
         });
         binding.rvFeatured.setLayoutManager(
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -72,8 +74,10 @@ public class HomeFragment extends Fragment {
 
         // Popular/Recommended (Vertical)
         popularAdapter = new TourAdapter(tour -> {
-            Toast.makeText(getContext(), "Clicked: " + tour.getName(), Toast.LENGTH_SHORT).show();
-            // TODO: Navigate to detail
+            Bundle args = new Bundle();
+            args.putString("tourId", tour.getId());
+            NavController nav = Navigation.findNavController(requireView());
+            nav.navigate(R.id.action_home_to_tour_detail, args);
         });
         binding.rvPopular.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvPopular.setAdapter(popularAdapter);

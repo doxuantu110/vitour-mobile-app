@@ -31,6 +31,11 @@ public class Tour {
     private boolean isFeatured;
     private List<String> tags;       // ["beach", "cultural", "food"]
 
+    // ── Detail Screen Fields (Nullable to prevent crashes) ────────
+    private List<String> imageUrls;  // For ViewPager2 gallery
+    private Double latitude;         // For Google Maps
+    private Double longitude;        // For Google Maps
+
     @ServerTimestamp
     private Date createdAt;
 
@@ -85,4 +90,13 @@ public class Tour {
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+
+    public List<String> getImageUrls() { return imageUrls; }
+    public void setImageUrls(List<String> imageUrls) { this.imageUrls = imageUrls; }
+
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 }

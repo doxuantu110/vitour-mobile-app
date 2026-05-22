@@ -90,6 +90,13 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1599709214731-15b565021a83?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1628169131652-52011bce5598?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 11.9404);
+        t.put("longitude", 108.4383);
         t.put("price", 1800000.0);
         t.put("rating", 4.7);
         t.put("reviewCount", 312);
@@ -111,6 +118,12 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 15.8801);
+        t.put("longitude", 108.3380);
         t.put("price", 1200000.0);
         t.put("rating", 4.9);
         t.put("reviewCount", 587);
@@ -132,6 +145,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 10.2899);
+        t.put("longitude", 103.9840);
         t.put("price", 4500000.0);
         t.put("rating", 4.8);
         t.put("reviewCount", 429);
@@ -153,6 +171,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1543661858-6fb2362a934a"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1543661858-6fb2362a934a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 22.3364);
+        t.put("longitude", 103.8438);
         t.put("price", 2200000.0);
         t.put("rating", 4.7);
         t.put("reviewCount", 356);
@@ -174,6 +197,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1583417646543-9828d0ee54e1"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1583417646543-9828d0ee54e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 12.2388);
+        t.put("longitude", 109.1967);
         t.put("price", 2800000.0);
         t.put("rating", 4.5);
         t.put("reviewCount", 478);
@@ -195,6 +223,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1528127269322-539801943592"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 20.9101);
+        t.put("longitude", 107.1839);
         t.put("price", 3500000.0);
         t.put("rating", 4.9);
         t.put("reviewCount", 631);
@@ -216,6 +249,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1547036967-23d11aacaee0"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 16.0544);
+        t.put("longitude", 108.2022);
         t.put("price", 2000000.0);
         t.put("rating", 4.6);
         t.put("reviewCount", 389);
@@ -237,6 +275,11 @@ public class FirebaseSeeder {
         t.put("coverImageUrl",
                 "https://images.unsplash.com/photo-1598977726547-9ded064d4e3c"
                 + "?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+        t.put("imageUrls", Arrays.asList(
+                "https://images.unsplash.com/photo-1598977726547-9ded064d4e3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ));
+        t.put("latitude", 16.4637);
+        t.put("longitude", 107.5909);
         t.put("price", 1500000.0);
         t.put("rating", 4.6);
         t.put("reviewCount", 271);
