@@ -1,5 +1,6 @@
 package com.uit.vitour.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,7 +15,9 @@ import com.uit.vitour.databinding.ItemTourCardBinding;
 import com.uit.vitour.model.Tour;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * TourAdapter.java — RecyclerView adapter for Tour items.
@@ -36,6 +39,8 @@ import java.util.Locale;
  */
 public class TourAdapter extends ListAdapter<Tour, TourAdapter.TourViewHolder> {
 
+    private static final String TAG = "TourAdapter";
+
     /** Callback interface — click event bubbles up to the Fragment/ViewModel. */
     public interface OnTourClickListener {
         void onTourClick(Tour tour);
@@ -48,19 +53,32 @@ public class TourAdapter extends ListAdapter<Tour, TourAdapter.TourViewHolder> {
         this.listener = listener;
     }
 
+    /**
+     * Override submitList to add debug logging so we can confirm data reaches the adapter.
+     */
+    @Override
+    public void submitList(List<Tour> list) {
+        int count = (list != null) ? list.size() : 0;
+        Log.d(TAG, "Adapter received " + count + " tours");
+        super.submitList(list);
+    }
+
     // ── DiffUtil — compares old and new lists for efficient updates ────────
+    // FIXED: use Objects.equals() instead of direct .equals() to prevent NPE
+    // when getId() / getName() returns null (can happen if @DocumentId hasn't
+    // been auto-mapped yet by Firestore SDK on the first snapshot delivery).
     private static final DiffUtil.ItemCallback<Tour> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<Tour>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull Tour oldItem, @NonNull Tour newItem) {
-                    // Two items represent the same Tour if their IDs match
-                    return oldItem.getId().equals(newItem.getId());
+                    // Use Objects.equals — null-safe, won't NPE if getId() is null
+                    return Objects.equals(oldItem.getId(), newItem.getId());
                 }
 
                 @Override
                 public boolean areContentsTheSame(@NonNull Tour oldItem, @NonNull Tour newItem) {
-                    // Only redraw if visible fields changed
-                    return oldItem.getName().equals(newItem.getName())
+                    // Only redraw if visible fields changed; null-safe for all String fields
+                    return Objects.equals(oldItem.getName(), newItem.getName())
                             && oldItem.getRating() == newItem.getRating()
                             && oldItem.getPrice() == newItem.getPrice();
                 }

@@ -1,5 +1,7 @@
 package com.uit.vitour.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -12,45 +14,74 @@ import com.uit.vitour.utils.Resource;
 import java.util.List;
 
 /**
- * ExploreViewModel.java — Owned by ExploreFragment.
+ * ExploreViewModel.java — Owned by SearchFragment (Tab 2).
+ *
+ * Two data streams:
+ *  1. browseTours   — real-time Firestore snapshot of all tours.
+ *                     Shown when search box is empty.
+ *  2. searchResults — one-shot Firestore fetch filtered by user query.
+ *                     Updated via switchMap every time the query changes.
  *
  * Search flow:
- * 1. User types in SearchBar → Fragment calls setSearchQuery(q)
- * 2. _searchQuery LiveData updates → Transformations.switchMap
- *    fires searchTours(q) in the Repository
- * 3. ExploreFragment observes searchResults and updates the RecyclerView
- *
- * WHY switchMap: cancels the previous network call when the query
- * changes, avoiding out-of-order result bugs.
+ *   1. Fragment calls setSearchQuery("") to load default list on start
+ *   2. User types in TextInputEditText → Fragment calls setSearchQuery(q)
+ *   3. _searchQuery LiveData updates → switchMap fires searchTours(q)
+ *   4. Fragment observes searchResults and updates RecyclerView
  */
 public class ExploreViewModel extends ViewModel {
+
+    private static final String TAG = "ExploreViewModel";
 
     private final TourRepository tourRepository = new TourRepository();
 
     // Internal trigger — Fragment writes here, switchMap listens
     private final MutableLiveData<String> _searchQuery = new MutableLiveData<>();
 
-    // Public LiveData — Fragment observes this
+    // Public LiveData — Fragment observes this for search results
     public final LiveData<Resource<List<Tour>>> searchResults =
             Transformations.switchMap(_searchQuery, tourRepository::searchTours);
 
+    // Real-time all-tours LiveData (cached)
+    private LiveData<Resource<List<Tour>>> browseTours;
+
     public ExploreViewModel() {
-        // tourRepository is initialized inline above
+        Log.d(TAG, "ExploreViewModel created");
     }
 
     /**
-     * Called from ExploreFragment when the user submits a search query.
-     * Passing an empty string resets the results.
+     * Called from Fragment when the user changes the search query.
+     * Passing an empty string resets results to show all tours.
      */
     public void setSearchQuery(String query) {
-        _searchQuery.setValue(query);
+        Log.d(TAG, "setSearchQuery: '" + query + "'");
+        _searchQuery.setValue(query != null ? query : "");
     }
 
     /**
-     * Load the default browse list (first page, no filter).
-     * Call this in onViewCreated() before the user types anything.
+     * Returns the current search query value.
+     */
+    public String getCurrentQuery() {
+        return _searchQuery.getValue();
+    }
+
+    /**
+     * Real-time LiveData of all tours from Firestore.
+     * Call this in onViewCreated() for the default browse view.
      */
     public LiveData<Resource<List<Tour>>> getBrowseTours() {
-        return tourRepository.getTours(0);
+        if (browseTours == null) {
+            Log.d(TAG, "getBrowseTours() — creating new LiveData from repository");
+            browseTours = tourRepository.getTours();
+        } else {
+            Log.d(TAG, "getBrowseTours() — returning cached LiveData");
+        }
+        return browseTours;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        tourRepository.removeListeners();
+        Log.d(TAG, "ExploreViewModel.onCleared() — listeners removed");
     }
 }

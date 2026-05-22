@@ -12,7 +12,20 @@
           "package_name": "com.uit.vitour"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "608025798405-ta6cgmetv7n24rf9ol8vq8cg8g8v1i2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uit.vitour",
+            "certificate_hash": "fc7e0dde4cac121a4156bf668f7196927847ccc2"
+          }
+        },
+        {
+          "client_id": "608025798405-pqq1t04totbpqlin41kic5j0qvhoam37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDpe3r6-pjdRvIfxGL4IrknwjHRhoLHeFA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608025798405-pqq1t04totbpqlin41kic5j0qvhoam37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

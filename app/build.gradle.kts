@@ -150,6 +150,14 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.analytics)
 
+    // ── Google Sign-In ────────────────────────────────────────────────────
+    // Required for Google OAuth flow: GoogleSignInClient, GoogleSignInAccount,
+    // GoogleSignInOptions (requestIdToken, requestEmail, requestProfile).
+    // Works together with firebase-auth: credential = GoogleAuthProvider.getCredential(idToken)
+    //                                    auth.signInWithCredential(credential)
+    // Version is NOT managed by Firebase BoM — pin explicitly.
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
     // ── Google Maps ───────────────────────────────────────────────────────
     // google-maps    : SupportMapFragment, GoogleMap, LatLng, Marker
     //                  Used in: TourDetailFragment to show destination on map

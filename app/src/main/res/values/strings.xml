@@ -21,6 +21,33 @@
     <string name="login_subtitle">Sign in to continue your journey</string>
     <string name="register_title">Join ViTour</string>
     <string name="register_subtitle">Create an account to start exploring</string>
+    <string name="sign_in_with_google">Continue with Google</string>
+    <string name="or_divider">— or —</string>
+
+    <!--
+        Google Sign-In Web Client ID.
+        ─────────────────────────────────────────────────────────────────
+        HOW TO GET THIS VALUE:
+          1. Open Firebase Console → Your Project → Project Settings (gear icon)
+          2. Scroll to "Your apps" → select the Android app
+          3. Under "SDK setup and configuration", find "Web client (auto created by Google Service)"
+             OR go to: https://console.cloud.google.com → APIs & Services → Credentials
+          4. Copy the "Client ID" ending in .apps.googleusercontent.com
+
+        WHY IT'S NEEDED:
+          GoogleSignInOptions.Builder.requestIdToken(clientId) requires the WEB
+          client ID (not the Android client ID). The web client ID is what Firebase
+          uses to verify the Google ID token on its backend.
+
+        NOTE: The google-services plugin auto-generates this as
+              R.string.default_web_client_id — but ONLY if google-services.json
+              contains a valid oauth_client with type 3 (web client).
+              If your google-services.json is minimal/stub, replace the value below
+              with the real Web Client ID from the Firebase Console.
+
+        REPLACE with your actual value:
+    -->
+    <string name="default_web_client_id" translatable="false">YOUR_WEB_CLIENT_ID.apps.googleusercontent.com</string>
 
     <!-- ── Home ──────────────────────────────────────────────────── -->
     <string name="home_greeting">Hello, Explorer! 👋</string>

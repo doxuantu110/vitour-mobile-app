@@ -1,6 +1,6 @@
 [versions]
 # ── Build Tooling ────────────────────────────────────────────────────────────
-agp            = "8.7.3"                   # Android Gradle Plugin
+agp            = "8.13.2"                   # Android Gradle Plugin
 
 # ── Testing ──────────────────────────────────────────────────────────────────
 junit          = "4.13.2"

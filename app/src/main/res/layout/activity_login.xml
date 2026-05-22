@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     activity_login.xml
-    Full-screen login form.
-    - Hero image / brand area at the top
-    - Email + Password TextInputLayouts (Material3)
-    - Login button (filled)
-    - Register link (text button)
+    ─────────────────────────────────────────────────────────────────
+    Layout structure:
+      1. Brand header (ViTour logo + title + subtitle)
+      2. Email + Password TextInputLayouts (email/password flow)
+      3. Email Login button
+      4. "— or —" divider
+      5. Google Sign-In button  ← NEW
+      6. Register link
+      7. Debug Firebase Test button (hidden in release)
 -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,11 +24,13 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <!-- App logo / brand header -->
+        <!-- ── Brand header ──────────────────────────────────────── -->
+
         <TextView
             android:id="@+id/tv_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
             android:fontFamily="sans-serif-medium"
             android:text="ViTour"
             android:textColor="@color/vitour_primary"
@@ -32,10 +38,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="56dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -49,7 +53,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_brand" />
 
-        <!-- Subtitle -->
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
@@ -62,7 +65,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <!-- Email field -->
+        <!-- ── Email field ────────────────────────────────────────── -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -84,7 +88,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Password field -->
+        <!-- ── Password field ────────────────────────────────────── -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -107,7 +112,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Login button -->
+        <!-- ── Email Login button ─────────────────────────────────── -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             android:layout_width="0dp"
@@ -119,7 +125,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_password" />
 
-        <!-- Progress indicator shown during auth -->
+        <!-- ── Progress bar ──────────────────────────────────────── -->
+
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
@@ -130,7 +137,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
-        <!-- Navigate to Register -->
+        <!-- ── "— or —" divider ──────────────────────────────────── -->
+
+        <TextView
+            android:id="@+id/tv_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/or_divider"
+            android:textColor="@color/vitour_on_surface_variant"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+        <!-- ── Google Sign-In button ──────────────────────────────── -->
+        <!--
+            Uses MaterialButton with outlined style + Google brand colors.
+            The Google "G" logo is set as startIcon — add ic_google.xml to
+            res/drawable/ (a simple vector of the Google "G" logo).
+
+            WHY NOT SignInButton:
+              The legacy com.google.android.gms.common.SignInButton is not
+              customizable and conflicts with Material3 theming. We use a
+              standard MaterialButton with the Google icon instead.
+        -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_google_sign_in"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/sign_in_with_google"
+            android:textColor="@color/vitour_on_surface"
+            android:textSize="15sp"
+            app:icon="@drawable/ic_google"
+            app:iconGravity="start"
+            app:iconPadding="12dp"
+            app:iconTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_divider"
+            app:strokeColor="@color/vitour_on_surface_variant"
+            app:strokeWidth="1dp" />
+
+        <!-- ── Register link ─────────────────────────────────────── -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_go_register"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -140,12 +192,12 @@
             android:text="@string/dont_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+            app:layout_constraintTop_toBottomOf="@id/btn_google_sign_in" />
 
+        <!-- ── Debug: Firebase Test ───────────────────────────────── -->
         <!--
-            ⚠ DEBUG ONLY — visible only when BuildConfig.DEBUG = true (controlled in LoginActivity).
-            Launches FirebaseTestActivity to verify Firebase integration.
-            Remove before production release.
+            ⚠ DEBUG ONLY — visibility is controlled in LoginActivity (shown
+            only in debug builds). Remove before production release.
         -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_firebase_test"

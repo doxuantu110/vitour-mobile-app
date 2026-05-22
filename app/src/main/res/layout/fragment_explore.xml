@@ -7,7 +7,7 @@
     android:background="@color/vitour_background"
     android:orientation="vertical">
 
-    <!-- Search bar -->
+    <!-- Search bar — uses TextInputLayout + TextInputEditText (no SearchBar widget) -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_bar"
         style="@style/Widget.ViTour.TextInput.Filled"
@@ -18,11 +18,33 @@
         app:startIconDrawable="@drawable/ic_nav_search">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search_explore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:imeOptions="actionSearch"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Loading spinner — visible while Firestore loads -->
+    <ProgressBar
+        android:id="@+id/progress_explore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:visibility="gone" />
+
+    <!-- Empty state — shown when search/browse returns no results -->
+    <TextView
+        android:id="@+id/tv_explore_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="32dp"
+        android:text="No tours found."
+        android:textColor="@color/vitour_text_tertiary"
+        android:visibility="gone" />
 
     <!-- Results list -->
     <androidx.recyclerview.widget.RecyclerView

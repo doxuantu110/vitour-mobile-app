@@ -1,5 +1,6 @@
 package com.uit.vitour.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,13 +15,17 @@ import com.uit.vitour.databinding.ItemTourFeaturedBinding;
 import com.uit.vitour.model.Tour;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * FeaturedTourAdapter.java — Adapter for the horizontal featured tours carousel.
  * Uses item_tour_featured.xml layout.
  */
 public class FeaturedTourAdapter extends ListAdapter<Tour, FeaturedTourAdapter.ViewHolder> {
+
+    private static final String TAG = "FeaturedTourAdapter";
 
     public interface OnTourClickListener {
         void onTourClick(Tour tour);
@@ -29,20 +34,33 @@ public class FeaturedTourAdapter extends ListAdapter<Tour, FeaturedTourAdapter.V
     private final OnTourClickListener listener;
 
     public FeaturedTourAdapter(OnTourClickListener listener) {
+        // FIXED: DiffUtil callbacks now use Objects.equals() to prevent NPE
+        // if getId() or getName() returns null (Firestore @DocumentId race condition
+        // on first snapshot delivery before the field is auto-mapped).
         super(new DiffUtil.ItemCallback<Tour>() {
             @Override
             public boolean areItemsTheSame(@NonNull Tour oldItem, @NonNull Tour newItem) {
-                return oldItem.getId().equals(newItem.getId());
+                return Objects.equals(oldItem.getId(), newItem.getId());
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull Tour oldItem, @NonNull Tour newItem) {
-                return oldItem.getName().equals(newItem.getName())
+                return Objects.equals(oldItem.getName(), newItem.getName())
                         && oldItem.getPrice() == newItem.getPrice()
                         && oldItem.getRating() == newItem.getRating();
             }
         });
         this.listener = listener;
+    }
+
+    /**
+     * Override submitList to add debug logging.
+     */
+    @Override
+    public void submitList(List<Tour> list) {
+        int count = (list != null) ? list.size() : 0;
+        Log.d(TAG, "FeaturedAdapter received " + count + " tours");
+        super.submitList(list);
     }
 
     @NonNull
