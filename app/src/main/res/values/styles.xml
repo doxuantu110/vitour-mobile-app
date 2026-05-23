@@ -63,6 +63,18 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <!-- Fully circular avatar (ShapeableImageView) -->
+    <style name="ShapeAppearance.ViTour.CircleImageView" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Rounded corners for review photo (ShapeableImageView) -->
+    <style name="ShapeAppearance.ViTour.RoundedCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
 
     <!-- ════════════════════════════════════════════════════════════════
          TEXT APPEARANCE — Typography Scale

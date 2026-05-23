@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_review.xml — A single review card in the reviews list
+    ─────────────────────────────────────────────────────────
+    Structure:
+      1. User avatar (circular) + name + date          ← header row
+      2. Star rating (5-star display, read-only)
+      3. Review text body
+      4. Optional review photo (gone when null)
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="0dp"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/vitour_surface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ── Header row: Avatar + Name + Date ─────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Circular user avatar -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user_avatar"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.ViTour.CircleImageView"
+                tools:src="@drawable/ic_nav_profile" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_reviewer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/vitour_on_surface"
+                    tools:text="Nguyen Van A" />
+
+                <TextView
+                    android:id="@+id/tv_review_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:textColor="@color/vitour_on_surface_variant"
+                    tools:text="May 22, 2026" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ── Star Rating Row ───────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/ll_stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Stars are populated programmatically in ReviewAdapter -->
+            <ImageView android:id="@+id/iv_star_1" android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_star" android:layout_marginEnd="2dp" />
+            <ImageView android:id="@+id/iv_star_2" android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_star" android:layout_marginEnd="2dp" />
+            <ImageView android:id="@+id/iv_star_3" android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_star" android:layout_marginEnd="2dp" />
+            <ImageView android:id="@+id/iv_star_4" android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_star" android:layout_marginEnd="2dp" />
+            <ImageView android:id="@+id/iv_star_5" android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_star" />
+
+        </LinearLayout>
+
+        <!-- ── Review Text ────────────────────────────────────────────── -->
+        <TextView
+            android:id="@+id/tv_review_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="3dp"
+            android:textSize="14sp"
+            android:textColor="@color/vitour_on_surface"
+            tools:text="An absolutely stunning place! The views were breathtaking and the guide was incredibly knowledgeable. Highly recommended for everyone." />
+
+        <!-- ── Review Photo (optional) ───────────────────────────────── -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_review_image"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.ViTour.RoundedCorners"
+            tools:visibility="visible"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

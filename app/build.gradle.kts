@@ -99,11 +99,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.lifecycle.runtime)
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
 
     // ── Image Loading: Glide ──────────────────────────────────────────────
     // Used in: TourAdapter (tour cover images), ProfileFragment (circular avatar)
     // Features: disk cache, memory cache, circleCrop(), crossfade animation
     implementation(libs.glide)
+
+    // ── Cloudinary ────────────────────────────────────────────────────────
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
 
     // ── Networking: Retrofit + OkHttp ─────────────────────────────────────
     // retrofit               : turns TourApiService interface into real HTTP calls

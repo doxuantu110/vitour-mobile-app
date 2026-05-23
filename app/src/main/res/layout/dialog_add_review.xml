@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    dialog_add_review.xml — Bottom sheet for submitting a new review
+    ────────────────────────────────────────────────────────────────
+    Structure:
+      1. Handle bar (drag indicator)
+      2. Header row: "Write a Review" title
+      3. Star rating input (RatingBar)
+      4. Comment input (TextInputLayout)
+      5. Photo picker row (thumbnail + pick button)
+      6. Submit button + Cancel button
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/vitour_surface"
+    android:paddingBottom="32dp">
+
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="#CCCCCC"
+        android:backgroundTint="@color/vitour_on_surface_variant" />
+
+    <!-- Title row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Write a Review"
+            android:textAppearance="@style/TextAppearance.ViTour.Title.Medium"
+            android:textStyle="bold" />
+
+        <!-- Rating summary label (updates dynamically) -->
+        <TextView
+            android:id="@+id/tv_rating_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/vitour_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Tap to rate" />
+    </LinearLayout>
+
+    <!-- ── Interactive Star RatingBar ───────────────────────────────── -->
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@style/Widget.AppCompat.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="1" />
+
+    <!-- ── Comment text input ────────────────────────────────────────── -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_comment"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        android:hint="Share your experience…">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minLines="3"
+            android:maxLines="6"
+            android:gravity="top" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- ── Photo picker row ───────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Thumbnail preview of selected image (gone until image picked) -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_selected_image"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.ViTour.RoundedCorners" />
+
+        <!-- Pick / change image button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_pick_image"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Add Photo"
+            app:icon="@drawable/ic_image"
+            app:iconGravity="start" />
+
+        <!-- Remove image button (visible only when image is selected) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_remove_image"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textColor="#E53935"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- ── Action buttons row ─────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_review"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="@color/vitour_on_surface_variant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Submit Review"
+            app:cornerRadius="24dp" />
+
+    </LinearLayout>
+
+    <!-- Loading indicator (shown while submitting) -->
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:trackCornerRadius="4dp" />
+
+</LinearLayout>

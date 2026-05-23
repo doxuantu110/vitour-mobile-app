@@ -16,6 +16,7 @@ public final class Constants {
     public static final String COLLECTION_TOURS = "tours";
     public static final String COLLECTION_USERS = "users";
     public static final String COLLECTION_BOOKMARKS = "bookmarks";
+    public static final String COLLECTION_REVIEWS = "reviews";   // sub-collection: tours/{id}/reviews
 
     // ── Firestore Field Names ─────────────────────────────────────────────
     public static final String FIELD_FEATURED = "isFeatured";

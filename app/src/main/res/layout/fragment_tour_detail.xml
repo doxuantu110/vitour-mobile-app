@@ -67,16 +67,20 @@
 
     <!-- Scrollable Content Area -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="100dp"> <!-- Padding for bottom sticky bar -->
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp">
 
             <!-- Title & Location -->
             <TextView
@@ -206,11 +210,100 @@
                     android:textColor="@color/vitour_text_secondary" />
             </FrameLayout>
 
+            <!-- ── Reviews Divider ────────────────────────────────────── -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/vitour_outline" />
+
+            <!-- ── Reviews Section Header ─────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reviews"
+                        android:textAppearance="@style/TextAppearance.ViTour.Title.Medium"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_review_count_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/vitour_on_surface_variant"
+                        tools:text="12 travellers reviewed this tour" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_write_review"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Write a Review"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_star"
+                    app:iconSize="14dp"
+                    app:iconGravity="start"
+                    app:cornerRadius="20dp" />
+
+            </LinearLayout>
+
+            <!-- ── Reviews Loading State ──────────────────────────────── -->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:visibility="gone" />
+
+            <!-- ── Reviews Empty State ────────────────────────────────── -->
+            <TextView
+                android:id="@+id/tv_reviews_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="No reviews yet. Be the first to share your experience!"
+                android:textColor="@color/vitour_on_surface_variant"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <!-- ── Reviews RecyclerView ───────────────────────────────── -->
+            <!--
+                nestedScrollingEnabled=false is REQUIRED inside NestedScrollView.
+                Without this, the RecyclerView intercepts scrolling and the outer
+                scroll view stops responding correctly.
+            -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <!-- Sticky Bottom Bar -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_booking_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
