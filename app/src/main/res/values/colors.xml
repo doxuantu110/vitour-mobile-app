@@ -154,5 +154,14 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="gray_500">#9E9E9E</color>
+
+    <!-- Safe Colors for Chat UI -->
+    <color name="chat_input_text">#000000</color>
+    <color name="chat_hint">#888888</color>
+    <color name="chat_ai_text">#111111</color>
+    <color name="chat_user_text">#FFFFFF</color>
+    <color name="chat_ai_bg">#F1F1F1</color>
+    <color name="chat_user_bg">#1A56E8</color> <!-- Using vitour_primary -->
 
 </resources>

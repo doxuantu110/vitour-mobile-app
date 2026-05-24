@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <!-- Avatar Container: MaterialCardView ensures perfect circular clipping and background across all API levels -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAssistantAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@color/chat_user_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageAssistantAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_ai_assistant"
+            app:tint="@color/chat_user_text"
+            android:visibility="visible"
+            android:contentDescription="AI Avatar" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAssistantMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/cardAssistantAvatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="wrap"
+        app:layout_constraintWidth_percent="0.80">
+
+        <TextView
+            android:id="@+id/textViewAssistantMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chat_bubble_assistant"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/chat_ai_text"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:textIsSelectable="true"
+            tools:text="Dạ, tour Đà Lạt 3 ngày 2 đêm hiện đang có giá..." />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textViewTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/gray_500"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@id/cardAssistantMessage"
+        app:layout_constraintTop_toBottomOf="@id/cardAssistantMessage"
+        tools:text="10:45 AM" />
+
+    <TextView
+        android:id="@+id/badgeOffline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="#FF9800"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:text="Offline AI"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTimestamp"
+        app:layout_constraintStart_toEndOf="@id/textViewTimestamp"
+        app:layout_constraintTop_toTopOf="@id/textViewTimestamp"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

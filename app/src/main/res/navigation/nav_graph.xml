@@ -89,4 +89,14 @@
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
 
+    <!-- ═══════════════════════════════════════════════════════════
+         CHATBOT AI
+         ViTour AI Assistant Chat Screen
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.uit.vitour.chat.ui.ChatFragment"
+        android:label="ViTour AI"
+        tools:layout="@layout/fragment_chat" />
+
 </navigation>

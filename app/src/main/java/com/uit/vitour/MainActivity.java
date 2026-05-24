@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseSeeder.seedIfEmpty();
 
         setupNavigation();
+        setupChatFab();
     }
 
     /**
@@ -134,7 +135,29 @@ public class MainActivity extends AppCompatActivity {
     private void onDestinationChanged(NavController controller,
                                       NavDestination destination,
                                       Bundle arguments) {
-        showBottomNav();
+        // Only show BottomNav and Chat FAB on top-level destinations
+        if (destination.getId() == R.id.homeFragment ||
+            destination.getId() == R.id.searchFragment ||
+            destination.getId() == R.id.bookingFragment ||
+            destination.getId() == R.id.profileFragment) {
+            showBottomNav();
+            binding.fabChat.show(); // Smooth scale-up animation
+        } else {
+            hideBottomNav();
+            binding.fabChat.hide(); // Smooth scale-down animation
+        }
+    }
+
+    // ── FAB Setup ─────────────────────────────────────────────────────────────
+
+    private void setupChatFab() {
+        binding.fabChat.setOnClickListener(v -> {
+            if (navController != null && navController.getCurrentDestination() != null) {
+                if (navController.getCurrentDestination().getId() != R.id.chatFragment) {
+                    navController.navigate(R.id.chatFragment);
+                }
+            }
+        });
     }
 
     // ── Public API for Fragments ──────────────────────────────────────────────

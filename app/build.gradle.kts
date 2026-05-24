@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 // ─────────────────────────────────────────────────────────────────────────────
 // app/build.gradle.kts  —  Module-level build configuration
 //
@@ -25,13 +28,19 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        // Read local.properties explicitly
+        val localProps = Properties()
+        val localPropsFile = project.rootProject.file("local.properties")
+        if (localPropsFile.exists()) {
+            localProps.load(FileInputStream(localPropsFile))
+        }
+
         // Embed the Maps API key from local.properties so it is NOT committed to git.
-        // In local.properties add:  MAPS_API_KEY=AIza...
-        // Then reference it in AndroidManifest.xml:
-        //   <meta-data android:name="com.google.android.geo.API_KEY"
-        //              android:value="${MAPS_API_KEY}" />
-        manifestPlaceholders["MAPS_API_KEY"] =
-            (project.findProperty("MAPS_API_KEY") as String?) ?: ""
+        manifestPlaceholders["MAPS_API_KEY"] = localProps.getProperty("MAPS_API_KEY") ?: ""
+        
+        // Load GEMINI API KEY from local.properties into BuildConfig
+        val geminiApiKey = localProps.getProperty("GEMINI_API_KEY") ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
     }
 
     buildTypes {
