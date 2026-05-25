@@ -57,6 +57,13 @@
         <argument
             android:name="tourId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_tourDetailFragment_to_bookingFormFragment"
+            app:destination="@id/bookingFormFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <!-- ═══════════════════════════════════════════════════════════
@@ -98,5 +105,24 @@
         android:name="com.uit.vitour.chat.ui.ChatFragment"
         android:label="ViTour AI"
         tools:layout="@layout/fragment_chat" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         BOOKING FORM
+         Where users fill pax and dates.
+         ═══════════════════════════════════════════════════════════ -->
+    <fragment
+        android:id="@+id/bookingFormFragment"
+        android:name="com.uit.vitour.ui.booking.BookingFormFragment"
+        android:label="Book Tour"
+        tools:layout="@layout/fragment_booking_form">
+        <argument
+            android:name="tourId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bookingFormFragment_to_bookingFragment"
+            app:destination="@id/bookingFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>

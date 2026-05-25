@@ -78,8 +78,11 @@ public class TourDetailFragment extends Fragment {
         setupReviewViewModel(tourId);
         setupWindowInsets();
 
-        binding.btnBookNow.setOnClickListener(v ->
-                Toast.makeText(getContext(), "Booking feature coming soon!", Toast.LENGTH_SHORT).show());
+        binding.btnBookNow.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("tourId", tourId);
+            Navigation.findNavController(v).navigate(com.uit.vitour.R.id.action_tourDetailFragment_to_bookingFormFragment, bundle);
+        });
 
         binding.btnWriteReview.setOnClickListener(v ->
                 AddReviewDialogFragment.newInstance(tourId)
@@ -214,7 +217,12 @@ public class TourDetailFragment extends Fragment {
         // Toolbar Title
         binding.collapsingToolbar.setTitle(tour.getName());
         binding.tvDetailTitle.setText(tour.getName());
-        binding.tvDetailLocation.setText(tour.getLocation());
+        if (tour.getLocationName() != null && !tour.getLocationName().isEmpty()) {
+            binding.tvDetailLocation.setText(tour.getLocationName());
+            binding.tvDetailLocation.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvDetailLocation.setVisibility(View.GONE);
+        }
         binding.tvDetailRating.setText(String.format(Locale.getDefault(), "%.1f", tour.getRating()));
         binding.tvDetailReviews.setText(String.format(Locale.getDefault(), "(%d reviews)", tour.getReviewCount()));
         binding.tvDetailDuration.setText(String.format(Locale.getDefault(), "%d Days", tour.getDurationDays()));

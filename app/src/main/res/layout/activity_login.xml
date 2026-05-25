@@ -81,6 +81,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
+                style="@style/AppEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -105,6 +106,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
+                style="@style/AppEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

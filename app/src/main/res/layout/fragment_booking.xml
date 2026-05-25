@@ -100,4 +100,38 @@
 
     </LinearLayout>
 
+    <!-- ── Error State ─────────────────────────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/layout_booking_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚠️"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/tv_booking_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Error loading bookings"
+            android:textColor="@color/vitour_error"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_retry_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Retry" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -14,7 +14,7 @@
 ║  Shape.ViTour.*            → ShapeAppearance for cards/buttons      ║
 ╚══════════════════════════════════════════════════════════════════════╝
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- ════════════════════════════════════════════════════════════════
          SHAPE APPEARANCE STYLES
@@ -270,6 +270,14 @@
     <!-- ════════════════════════════════════════════════════════════════
          WIDGET STYLES — TextInputLayout
          ════════════════════════════════════════════════════════════════ -->
+
+    <!-- Force text color and disable forceDark to prevent white-on-white issues on Xiaomi/MIUI -->
+    <style name="AppEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorHint">#808080</item>
+        <item name="colorControlNormal">#808080</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
 
     <!-- Standard outlined input (Login, Register, Search forms) -->
     <style name="Widget.ViTour.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

@@ -3,6 +3,9 @@ package com.uit.vitour.model;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.PropertyName;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +24,21 @@ public class Tour {
     private String id;
 
     private String name;
-    private String location;         // "Hội An, Quảng Nam"
+    private GeoPoint location;       // Coordinates
+    private String locationName;     // "Hội An, Quảng Nam"
     private String description;
     private String coverImageUrl;    // Remote URL loaded by Glide
     private double price;            // Price per person (VND)
     private double rating;           // Average rating 0.0 – 5.0
     private int reviewCount;
     private int durationDays;
+    @PropertyName("isFeatured")
     private boolean isFeatured;
     private List<String> tags;       // ["beach", "cultural", "food"]
+
+    // ── Capacity Management Fields ────────────────────────────────────────────
+    private int maxCapacity;
+    private int bookedSlots;
 
     // ── Detail Screen Fields (Nullable to prevent crashes) ────────
     private List<String> imageUrls;  // For ViewPager2 gallery
@@ -43,11 +52,11 @@ public class Tour {
     public Tour() {}
 
     // ── Convenience constructor for Retrofit / local testing ─────────────
-    public Tour(String id, String name, String location, String coverImageUrl,
+    public Tour(String id, String name, String locationName, String coverImageUrl,
                 double price, double rating) {
         this.id = id;
         this.name = name;
-        this.location = location;
+        this.locationName = locationName;
         this.coverImageUrl = coverImageUrl;
         this.price = price;
         this.rating = rating;
@@ -61,8 +70,11 @@ public class Tour {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
+    public GeoPoint getLocation() { return location; }
+    public void setLocation(GeoPoint location) { this.location = location; }
+
+    public String getLocationName() { return locationName; }
+    public void setLocationName(String locationName) { this.locationName = locationName; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
@@ -82,11 +94,20 @@ public class Tour {
     public int getDurationDays() { return durationDays; }
     public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
 
+    @PropertyName("isFeatured")
     public boolean isFeatured() { return isFeatured; }
+    
+    @PropertyName("isFeatured")
     public void setFeatured(boolean featured) { isFeatured = featured; }
 
     public List<String> getTags() { return tags; }
     public void setTags(List<String> tags) { this.tags = tags; }
+
+    public int getMaxCapacity() { return maxCapacity; }
+    public void setMaxCapacity(int maxCapacity) { this.maxCapacity = maxCapacity; }
+
+    public int getBookedSlots() { return bookedSlots; }
+    public void setBookedSlots(int bookedSlots) { this.bookedSlots = bookedSlots; }
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }

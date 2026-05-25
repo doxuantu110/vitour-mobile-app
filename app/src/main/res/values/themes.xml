@@ -9,7 +9,7 @@
 ║  • All color/shape/typography tokens wired from design system files.║
 ╚══════════════════════════════════════════════════════════════════════╝
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.ViTour" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
@@ -49,8 +49,11 @@
         <item name="materialCardViewStyle">@style/Widget.ViTour.Card</item>
         <item name="materialButtonStyle">@style/Widget.ViTour.Button.Primary</item>
         <item name="textInputStyle">@style/Widget.ViTour.TextInput</item>
+        <item name="editTextStyle">@style/AppEditTextStyle</item>
         <item name="chipStyle">@style/Widget.ViTour.Chip.Filter</item>
 
+        <!-- Disable auto-force dark on Xiaomi/MIUI to prevent UI corruption -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
 

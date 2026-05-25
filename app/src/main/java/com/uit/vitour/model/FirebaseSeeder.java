@@ -3,6 +3,7 @@ package com.uit.vitour.model;
 import android.util.Log;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,19 +53,18 @@ public class FirebaseSeeder {
 
     private static void insertAllTours(FirebaseFirestore db) {
         // 8 Vietnam tours. Each insertTour() is async; logs confirm success/failure.
-        insertTour(db, buildDaLat());
-        insertTour(db, buildHoiAn());
-        insertTour(db, buildPhuQuoc());
-        insertTour(db, buildSaPa());
-        insertTour(db, buildNhaTrang());
-        insertTour(db, buildHaLong());
-        insertTour(db, buildDaNang());
-        insertTour(db, buildHue());
+        insertTour(db, "tour_dalat", buildDaLat());
+        insertTour(db, "tour_hoian", buildHoiAn());
+        insertTour(db, "tour_phuquoc", buildPhuQuoc());
+        insertTour(db, "tour_sapa", buildSaPa());
+        insertTour(db, "tour_nhatrang", buildNhaTrang());
+        insertTour(db, "tour_halong", buildHaLong());
+        insertTour(db, "tour_danang", buildDaNang());
+        insertTour(db, "tour_hue", buildHue());
         Log.d(TAG, "Seeder inserted 8 tours into '" + COLLECTION_TOURS + "' collection (async — check individual success logs)");
     }
 
-    private static void insertTour(FirebaseFirestore db, Map<String, Object> tourData) {
-        String id = (String) tourData.get("id");
+    private static void insertTour(FirebaseFirestore db, String id, Map<String, Object> tourData) {
         db.collection(COLLECTION_TOURS).document(id)
                 .set(tourData)
                 .addOnSuccessListener(unused ->
@@ -80,9 +80,8 @@ public class FirebaseSeeder {
 
     private static Map<String, Object> buildDaLat() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_dalat");
         t.put("name", "Đà Lạt City of Flowers");
-        t.put("location", "Đà Lạt, Lâm Đồng");
+        t.put("locationName", "Đà Lạt, Lâm Đồng");
         t.put("description",
                 "Discover the romantic \"City of Flowers\" nestled in the Central Highlands. "
                 + "Explore pine forests, misty valleys, French colonial villas, and vibrant "
@@ -95,22 +94,22 @@ public class FirebaseSeeder {
                 "https://images.unsplash.com/photo-1599709214731-15b565021a83?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 "https://images.unsplash.com/photo-1628169131652-52011bce5598?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 11.9404);
-        t.put("longitude", 108.4383);
+        t.put("location", new GeoPoint(11.9404, 108.4383));
         t.put("price", 1800000.0);
         t.put("rating", 4.7);
         t.put("reviewCount", 312);
         t.put("durationDays", 3);
         t.put("isFeatured", true);
         t.put("tags", Arrays.asList("mountain", "romantic", "cultural", "food"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildHoiAn() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_hoian");
         t.put("name", "Hội An Ancient Town");
-        t.put("location", "Hội An, Quảng Nam");
+        t.put("locationName", "Hội An, Quảng Nam");
         t.put("description",
                 "Step back in time in the UNESCO World Heritage Ancient Town of Hội An. "
                 + "Wander lantern-lit streets, taste white rose dumplings, rent a bicycle to "
@@ -122,22 +121,22 @@ public class FirebaseSeeder {
                 "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 15.8801);
-        t.put("longitude", 108.3380);
+        t.put("location", new GeoPoint(15.8801, 108.3380));
         t.put("price", 1200000.0);
         t.put("rating", 4.9);
         t.put("reviewCount", 587);
         t.put("durationDays", 2);
         t.put("isFeatured", true);
         t.put("tags", Arrays.asList("cultural", "food", "heritage", "lantern"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildPhuQuoc() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_phuquoc");
         t.put("name", "Phú Quốc Pearl Island");
-        t.put("location", "Phú Quốc, Kiên Giang");
+        t.put("locationName", "Phú Quốc, Kiên Giang");
         t.put("description",
                 "Vietnam's largest island paradise beckons with crystal-clear turquoise waters, "
                 + "pristine white sand beaches, and world-class resorts. Explore coral reefs, "
@@ -148,22 +147,22 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 10.2899);
-        t.put("longitude", 103.9840);
+        t.put("location", new GeoPoint(10.2899, 103.9840));
         t.put("price", 4500000.0);
         t.put("rating", 4.8);
         t.put("reviewCount", 429);
         t.put("durationDays", 4);
         t.put("isFeatured", true);
         t.put("tags", Arrays.asList("beach", "island", "snorkeling", "resort"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildSaPa() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_sapa");
         t.put("name", "Sa Pa Trekking & Homestay");
-        t.put("location", "Sa Pa, Lào Cai");
+        t.put("locationName", "Sa Pa, Lào Cai");
         t.put("description",
                 "Trek through dramatic rice terraces carved into the Hoàng Liên Son mountains. "
                 + "Stay in a traditional H'Mong village homestay, meet local hill tribes, "
@@ -174,22 +173,22 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1543661858-6fb2362a934a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 22.3364);
-        t.put("longitude", 103.8438);
+        t.put("location", new GeoPoint(22.3364, 103.8438));
         t.put("price", 2200000.0);
         t.put("rating", 4.7);
         t.put("reviewCount", 356);
         t.put("durationDays", 3);
         t.put("isFeatured", false);
         t.put("tags", Arrays.asList("mountain", "adventure", "trekking", "cultural"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildNhaTrang() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_nhatrang");
         t.put("name", "Nha Trang Beach Getaway");
-        t.put("location", "Nha Trang, Khánh Hòa");
+        t.put("locationName", "Nha Trang, Khánh Hòa");
         t.put("description",
                 "Vietnam's beach capital offers a stunning bay with 19 islands, "
                 + "vibrant coral reefs for snorkeling and diving, healing mud baths, "
@@ -200,22 +199,22 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1583417646543-9828d0ee54e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 12.2388);
-        t.put("longitude", 109.1967);
+        t.put("location", new GeoPoint(12.2388, 109.1967));
         t.put("price", 2800000.0);
         t.put("rating", 4.5);
         t.put("reviewCount", 478);
         t.put("durationDays", 3);
         t.put("isFeatured", false);
         t.put("tags", Arrays.asList("beach", "diving", "island", "nightlife"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildHaLong() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_halong");
         t.put("name", "Hạ Long Bay Cruise");
-        t.put("location", "Hạ Long, Quảng Ninh");
+        t.put("locationName", "Hạ Long, Quảng Ninh");
         t.put("description",
                 "Cruise through 1,600 limestone karst islands rising dramatically from "
                 + "UNESCO-listed Hạ Long Bay. Kayak into hidden sea caves, watch the sunset "
@@ -226,22 +225,22 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 20.9101);
-        t.put("longitude", 107.1839);
+        t.put("location", new GeoPoint(20.9101, 107.1839));
         t.put("price", 3500000.0);
         t.put("rating", 4.9);
         t.put("reviewCount", 631);
         t.put("durationDays", 2);
         t.put("isFeatured", true);
         t.put("tags", Arrays.asList("beach", "cruise", "kayaking", "heritage"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildDaNang() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_danang");
         t.put("name", "Đà Nẵng City & Beach Break");
-        t.put("location", "Đà Nẵng");
+        t.put("locationName", "Đà Nẵng");
         t.put("description",
                 "Vietnam's third-largest city combines urban energy with pristine beaches. "
                 + "Walk the iconic Golden Bridge held by giant stone hands, explore Marble Mountain, "
@@ -252,22 +251,22 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 16.0544);
-        t.put("longitude", 108.2022);
+        t.put("location", new GeoPoint(16.0544, 108.2022));
         t.put("price", 2000000.0);
         t.put("rating", 4.6);
         t.put("reviewCount", 389);
         t.put("durationDays", 3);
         t.put("isFeatured", false);
         t.put("tags", Arrays.asList("beach", "city", "food", "adventure"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 
     private static Map<String, Object> buildHue() {
         Map<String, Object> t = new HashMap<>();
-        t.put("id", "tour_hue");
         t.put("name", "Huế Imperial City");
-        t.put("location", "Huế, Thừa Thiên Huế");
+        t.put("locationName", "Huế, Thừa Thiên Huế");
         t.put("description",
                 "Immerse yourself in the grandeur of Vietnam's last imperial capital. "
                 + "Explore the UNESCO Imperial Citadel, visit elaborately decorated royal tombs, "
@@ -278,14 +277,15 @@ public class FirebaseSeeder {
         t.put("imageUrls", Arrays.asList(
                 "https://images.unsplash.com/photo-1598977726547-9ded064d4e3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
         ));
-        t.put("latitude", 16.4637);
-        t.put("longitude", 107.5909);
+        t.put("location", new GeoPoint(16.4637, 107.5909));
         t.put("price", 1500000.0);
         t.put("rating", 4.6);
         t.put("reviewCount", 271);
         t.put("durationDays", 2);
         t.put("isFeatured", false);
         t.put("tags", Arrays.asList("cultural", "heritage", "history", "food"));
+        t.put("maxCapacity", 30);
+        t.put("bookedSlots", 0);
         return t;
     }
 }

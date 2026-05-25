@@ -1,5 +1,6 @@
 package com.uit.vitour.ui.booking;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,50 +16,23 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.uit.vitour.adapter.TourAdapter;
+import com.uit.vitour.adapter.BookingAdapter;
 import com.uit.vitour.databinding.FragmentBookingBinding;
-import com.uit.vitour.model.Tour;
-import com.uit.vitour.viewmodel.ProfileViewModel;
+import com.uit.vitour.model.Booking;
+import com.uit.vitour.viewmodel.BookingViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-/**
- * BookingFragment.java — Tab 3: Booking
- * ─────────────────────────────────────────────────────────────────
- * PURPOSE: Shows the signed-in user's upcoming and past bookings.
- *
- * TABS: Upcoming (default) | Past
- *   • Upcoming → bookings with future dates / "confirmed" / "pending" status
- *   • Past     → bookings with past dates / "completed" / "cancelled" status
- *
- * DATA FLOW:
- *   ProfileViewModel.getBookmarks(uid)       ← Firestore sub-collection
- *       │
- *       ▼ LiveData<Resource<List<Tour>>>
- *   Fragment filters list by tab selection
- *       │
- *       ▼
- *   TourAdapter.submitList() → RecyclerView
- *
- * NOTE: When you build a dedicated Booking model (with date, status, etc.),
- *       replace ProfileViewModel.getBookmarks() with a BookingRepository
- *       and a dedicated BookingViewModel. The Fragment code stays the same.
- *
- * BEGINNER TIP — when to create a new ViewModel:
- *   • Use an existing ViewModel if the data and logic are identical.
- *   • Create a new ViewModel when the data shape or business rules differ.
- */
 public class BookingFragment extends Fragment {
 
     private FragmentBookingBinding binding;
-    private ProfileViewModel viewModel;
-    private TourAdapter bookingAdapter;
+    private BookingViewModel viewModel;
+    private BookingAdapter bookingAdapter;
 
-    // Full list fetched from Firestore — filtered into tabs locally
-    private List<Tour> allBookings = new ArrayList<>();
-
-    // ── Lifecycle ─────────────────────────────────────────────────────────────
+    private List<Booking> allBookings = new ArrayList<>();
+    private FirebaseUser currentUser;
 
     @Nullable
     @Override
@@ -73,34 +47,29 @@ public class BookingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BookingViewModel.class);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         setupRecyclerView();
         setupTabFilter();
+        
+        binding.btnRetryBooking.setOnClickListener(v -> {
+            if (currentUser != null) {
+                binding.layoutBookingError.setVisibility(View.GONE);
+                viewModel.retryUserBookings(requireContext(), currentUser.getUid());
+                observeBookings(); // re-observe if necessary, but livedata usually pushes updates
+            }
+        });
+
         loadBookings();
     }
 
-    // ── Setup ─────────────────────────────────────────────────────────────────
-
     private void setupRecyclerView() {
-        bookingAdapter = new TourAdapter(tour -> {
-            // TODO: Navigate to BookingDetailFragment
-            // Navigation.findNavController(requireView())
-            //           .navigate(R.id.action_booking_to_detail, args);
-        });
+        bookingAdapter = new BookingAdapter(this::showCancelConfirmationDialog);
         binding.rvBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvBookings.setAdapter(bookingAdapter);
     }
 
-    /**
-     * Wire the Upcoming / Past tab strip to filter the booking list.
-     *
-     * Tab 0 → Upcoming: first half of the list (placeholder logic).
-     * Tab 1 → Past: second half of the list (placeholder logic).
-     *
-     * Replace with real status-based filtering once you have a Booking model
-     * with a `status` or `date` field.
-     */
     private void setupTabFilter() {
         binding.tabLayoutBooking.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -116,73 +85,65 @@ public class BookingFragment extends Fragment {
         });
     }
 
-    // ── Data Loading ──────────────────────────────────────────────────────────
-
     private void loadBookings() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) return;
-
-        viewModel.getBookmarks(currentUser.getUid())
+        observeBookings();
+    }
+    
+    private void observeBookings() {
+        viewModel.getUserBookings(requireContext(), currentUser.getUid())
                  .observe(getViewLifecycleOwner(), resource -> {
                      switch (resource.status) {
                          case LOADING:
-                             // Optional: show a loading spinner
+                             // Optionally show a loading spinner
                              break;
 
                          case SUCCESS:
-                             allBookings = resource.data != null
-                                     ? resource.data
-                                     : new ArrayList<>();
+                             binding.layoutBookingError.setVisibility(View.GONE);
+                             allBookings = resource.data != null ? resource.data : new ArrayList<>();
 
                              if (allBookings.isEmpty()) {
                                  showEmptyState();
                              } else {
-                                 // Apply filter for the currently selected tab
-                                 int selectedTab = binding.tabLayoutBooking
-                                         .getSelectedTabPosition();
+                                 int selectedTab = binding.tabLayoutBooking.getSelectedTabPosition();
                                  filterByTab(selectedTab);
                              }
                              break;
 
                          case ERROR:
-                             if (getView() != null) {
-                                 Snackbar.make(getView(),
-                                         resource.message != null
-                                                 ? resource.message
-                                                 : "Failed to load bookings",
-                                         Snackbar.LENGTH_LONG).show();
-                             }
+                             showErrorState(resource.message != null ? resource.message : "Failed to load bookings");
                              break;
                      }
                  });
     }
 
-    // ── Filter Logic ──────────────────────────────────────────────────────────
-
-    /**
-     * Filters allBookings by tab position and updates the RecyclerView.
-     *
-     * PLACEHOLDER logic: splits the list in half for demonstration.
-     * Replace with: tour.getStatus().equals("upcoming") filtering
-     * once your Booking model has a status/date field.
-     *
-     * @param tabPosition 0 = Upcoming, 1 = Past
-     */
     private void filterByTab(int tabPosition) {
         if (allBookings.isEmpty()) {
             showEmptyState();
             return;
         }
 
-        List<Tour> filtered;
-        if (tabPosition == 0) {
-            // Upcoming: first half as placeholder
-            int mid = (allBookings.size() + 1) / 2;
-            filtered = allBookings.subList(0, mid);
-        } else {
-            // Past: second half as placeholder
-            int mid = (allBookings.size() + 1) / 2;
-            filtered = allBookings.subList(mid, allBookings.size());
+        List<Booking> filtered = new ArrayList<>();
+        
+        java.util.Calendar calNow = java.util.Calendar.getInstance();
+        calNow.setTime(new Date());
+        calNow.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        calNow.set(java.util.Calendar.MINUTE, 0);
+        calNow.set(java.util.Calendar.SECOND, 0);
+        calNow.set(java.util.Calendar.MILLISECOND, 0);
+        Date today = calNow.getTime();
+
+        for (Booking b : allBookings) {
+            boolean isCancelledOrFailed = Booking.STATUS_CANCELLED.equals(b.getStatus()) || "FAILED".equals(b.getStatus());
+            boolean isPastDate = b.getSelectedDate() == null || b.getSelectedDate().before(today);
+            
+            boolean isPast = isPastDate || isCancelledOrFailed;
+                                 
+            if (tabPosition == 0) { // Upcoming
+                if (!isPast) filtered.add(b);
+            } else { // Past
+                if (isPast) filtered.add(b);
+            }
         }
 
         if (filtered.isEmpty()) {
@@ -192,20 +153,50 @@ public class BookingFragment extends Fragment {
         }
     }
 
-    // ── View State Helpers ────────────────────────────────────────────────────
+    private void showCancelConfirmationDialog(Booking booking) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Cancel Booking")
+                .setMessage("Are you sure you want to cancel this booking?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    viewModel.cancelBooking(requireContext(), booking.getBookingId())
+                            .observe(getViewLifecycleOwner(), resource -> {
+                                switch (resource.status) {
+                                    case LOADING:
+                                        // Show loading
+                                        break;
+                                    case SUCCESS:
+                                        Snackbar.make(requireView(), "Booking cancelled successfully", Snackbar.LENGTH_SHORT).show();
+                                        // The snapshot listener in getUserBookings will automatically refresh the list.
+                                        break;
+                                    case ERROR:
+                                        Snackbar.make(requireView(), "Error: " + resource.message, Snackbar.LENGTH_LONG).show();
+                                        break;
+                                }
+                            });
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 
-    private void showList(List<Tour> tours) {
+    private void showList(List<Booking> bookings) {
         binding.rvBookings.setVisibility(View.VISIBLE);
         binding.layoutBookingEmpty.setVisibility(View.GONE);
-        bookingAdapter.submitList(new ArrayList<>(tours)); // copy to avoid subList issues
+        binding.layoutBookingError.setVisibility(View.GONE);
+        bookingAdapter.submitList(new ArrayList<>(bookings)); 
     }
 
     private void showEmptyState() {
         binding.rvBookings.setVisibility(View.GONE);
         binding.layoutBookingEmpty.setVisibility(View.VISIBLE);
+        binding.layoutBookingError.setVisibility(View.GONE);
     }
-
-    // ── Cleanup ───────────────────────────────────────────────────────────────
+    
+    private void showErrorState(String errorMsg) {
+        binding.rvBookings.setVisibility(View.GONE);
+        binding.layoutBookingEmpty.setVisibility(View.GONE);
+        binding.layoutBookingError.setVisibility(View.VISIBLE);
+        binding.tvBookingError.setText(errorMsg);
+    }
 
     @Override
     public void onDestroyView() {

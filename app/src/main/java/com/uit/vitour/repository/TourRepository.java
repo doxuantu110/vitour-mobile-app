@@ -326,7 +326,7 @@ public class TourRepository {
     private boolean matchesQuery(Tour t, String lowerQuery) {
         if (t == null) return false;
         boolean matchName = t.getName() != null && t.getName().toLowerCase().contains(lowerQuery);
-        boolean matchLoc  = t.getLocation() != null && t.getLocation().toLowerCase().contains(lowerQuery);
+        boolean matchLoc  = t.getLocationName() != null && t.getLocationName().toLowerCase().contains(lowerQuery);
         boolean matchTag  = false;
         if (t.getTags() != null) {
             for (String tag : t.getTags()) {

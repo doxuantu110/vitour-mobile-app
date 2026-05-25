@@ -86,7 +86,12 @@ public class FeaturedTourAdapter extends ListAdapter<Tour, FeaturedTourAdapter.V
 
         void bind(Tour tour, OnTourClickListener listener) {
             binding.tvTourName.setText(tour.getName());
-            binding.tvLocation.setText(tour.getLocation());
+            if (tour.getLocationName() != null && !tour.getLocationName().isEmpty()) {
+                binding.tvLocation.setText(tour.getLocationName());
+                binding.tvLocation.setVisibility(android.view.View.VISIBLE);
+            } else {
+                binding.tvLocation.setVisibility(android.view.View.GONE);
+            }
             binding.tvRating.setText(String.valueOf(tour.getRating()));
 
             NumberFormat fmt = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
