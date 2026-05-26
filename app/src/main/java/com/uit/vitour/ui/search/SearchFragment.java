@@ -75,11 +75,18 @@ public class SearchFragment extends Fragment {
 
     private void setupRecyclerView() {
         tourAdapter = new TourAdapter(tour -> {
-            // TODO: Navigate to TourDetailFragment
-            // Bundle args = new Bundle();
-            // args.putString(Constants.EXTRA_TOUR_ID, tour.getId());
-            // Navigation.findNavController(requireView())
-            //           .navigate(R.id.action_search_to_detail, args);
+            // 1. Đóng gói ID của tour vào Bundle để truyền sang màn hình chi tiết
+            android.os.Bundle bundle = new android.os.Bundle();
+            bundle.putString("tourId", tour.getId());
+
+            // 2. Dùng NavController để chuyển hướng sang TourDetailFragment
+            try {
+                androidx.navigation.Navigation.findNavController(requireView())
+                        .navigate(com.uit.vitour.R.id.tourDetailFragment, bundle);
+                // LƯU Ý: Đảm bảo 'tourDetailFragment' khớp với ID bạn đặt trong file nav_graph.xml
+            } catch (Exception e) {
+                android.util.Log.e("Navigation", "Lỗi chuyển trang: " + e.getMessage());
+            }
         });
         binding.rvSearchResults.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvSearchResults.setAdapter(tourAdapter);
