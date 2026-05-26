@@ -39,7 +39,7 @@ public class BookingRepository {
             return result;
         }
 
-        String generatedBookingId = UUID.randomUUID().toString();
+        String generatedBookingId = UUID.randomUUID().toString().substring(0, 8);
         booking.setBookingId(generatedBookingId);
         
         DocumentReference tourRef = db.collection("tours").document(booking.getTourId());
@@ -122,6 +122,30 @@ public class BookingRepository {
             Log.e(TAG, "Failed to cancel booking: " + e.getMessage(), e);
             result.setValue(Resource.error(e.getMessage(), null));
         });
+
+        return result;
+    }
+
+    public LiveData<Resource<Boolean>> updateBookingStatus(String bookingId, String newStatus) {
+        MutableLiveData<Resource<Boolean>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading(null));
+
+        if (bookingId == null || bookingId.isEmpty()) {
+            result.setValue(Resource.error("Invalid booking ID", null));
+            return result;
+        }
+
+        db.collection("bookings")
+                .document(bookingId)
+                .update("status", newStatus, "updatedAt", FieldValue.serverTimestamp())
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Booking status updated successfully: " + bookingId);
+                    result.setValue(Resource.success(true));
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Failed to update booking status: " + e.getMessage(), e);
+                    result.setValue(Resource.error(e.getMessage(), null));
+                });
 
         return result;
     }

@@ -11,7 +11,9 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
+import com.uit.vitour.viewmodel.PaymentSharedViewModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.uit.vitour.databinding.ActivityMainBinding;
 import com.uit.vitour.model.FirebaseSeeder;
@@ -66,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
         setupNavigation();
         setupChatFab();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == 1001 && data != null) {
+            int status = data.getIntExtra("status", -1);
+            Log.e("MoMo_Result", "Status: " + status + ", Message: " + data.getStringExtra("message"));
+            String orderId = data.getStringExtra("orderId");
+            
+            PaymentSharedViewModel paymentSharedViewModel = new ViewModelProvider(this).get(PaymentSharedViewModel.class);
+            paymentSharedViewModel.setPaymentResult(status, orderId);
+        }
     }
 
     /**

@@ -109,4 +109,8 @@ public class BookingViewModel extends ViewModel {
     public LiveData<Resource<Boolean>> cancelBooking(Context context, String bookingId) {
         return repository.cancelBooking(context, bookingId);
     }
+
+    public LiveData<Resource<Boolean>> updateBookingStatus(String bookingId, String newStatus) {
+        return repository.updateBookingStatus(bookingId, newStatus);
+    }
 }

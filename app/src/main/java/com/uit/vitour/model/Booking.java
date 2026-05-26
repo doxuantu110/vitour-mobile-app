@@ -31,6 +31,7 @@ public class Booking {
     private double totalPrice;
     
     private String status;
+    private String paymentStatus;
     private String requestToken;
 
     @ServerTimestamp
@@ -38,6 +39,9 @@ public class Booking {
     
     @ServerTimestamp
     private Date updatedAt;
+    
+    @ServerTimestamp
+    private Date paidAt;
 
     // Required no-arg constructor for Firestore deserialization
     public Booking() {}
@@ -88,4 +92,10 @@ public class Booking {
 
     public Date getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
+    
+    public Date getPaidAt() { return paidAt; }
+    public void setPaidAt(Date paidAt) { this.paidAt = paidAt; }
+    
+    public String getPaymentStatus() { return paymentStatus; }
+    public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }
 }

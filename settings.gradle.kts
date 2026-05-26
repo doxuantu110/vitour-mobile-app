@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ViTour"
 include(":app")
- 
+//include(":backend")

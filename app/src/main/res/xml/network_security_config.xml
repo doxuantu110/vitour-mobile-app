@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow cleartext traffic only for local development backends -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.99.67.71</domain>
+        <domain includeSubdomains="true">localhost</domain>
+    </domain-config>
+</network-security-config>
