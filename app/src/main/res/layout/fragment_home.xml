@@ -72,17 +72,17 @@
                     android:id="@+id/btn_notification"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
+                    android:insetTop="0dp"                    android:insetBottom="0dp"
+                    app:backgroundTint="#2196F3"
                     app:icon="@drawable/ic_nav_profile"
                     app:iconGravity="textStart"
-                    app:iconSize="20dp"
-                    app:iconTint="@color/vitour_primary"
-                    app:strokeColor="@color/vitour_outline"
-                    app:strokeWidth="@dimen/stroke_thin"
+                    app:iconSize="26dp"
+                    app:iconTint="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/vitour_outline"
+                    app:strokeWidth="@dimen/stroke_thin" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
